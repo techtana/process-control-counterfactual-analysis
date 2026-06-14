@@ -1,0 +1,5444 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>R2R counterfactual diagnostic</title>
+<style>
+:root { --fg:#1b1f24; --muted:#586069; --line:#e1e4e8; --accent:#0366d6;
+        --code-bg:#f6f8fa; --term:#0a7d33; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+       color: var(--fg); margin: 0; padding: 0 0 4rem; line-height: 1.5; }
+header { background:#24292e; color:#fff; padding: 1.5rem 2rem; }
+header h1 { margin: 0; font-size: 1.4rem; }
+header p { margin: .35rem 0 0; color:#c8cdd2; font-size:.9rem; }
+main { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+section { margin-top: 2.5rem; }
+h2 { font-size: 1.15rem; border-bottom: 2px solid var(--line);
+     padding-bottom: .3rem; }
+.note { color: var(--muted); font-size: .88rem; }
+details { border: 1px solid var(--line); border-radius: 6px; margin: .5rem 0;
+          background:#fff; }
+details > summary { cursor: pointer; padding: .6rem .9rem; font-weight: 600;
+                    list-style: none; }
+details > summary::-webkit-details-marker { display:none; }
+details > summary:hover { background: var(--code-bg); }
+details[open] > summary { border-bottom: 1px solid var(--line); }
+pre.derivation { margin: 0; padding: .9rem 1.1rem; background: var(--code-bg);
+                 font-family: "Cascadia Code", Consolas, monospace;
+                 font-size: .82rem; overflow-x: auto;
+                 border-radius: 0 0 6px 6px; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+        background:#fff; }
+th, td { border: 1px solid var(--line); padding: .35rem .55rem;
+         text-align: right; white-space: nowrap; }
+th { background: var(--code-bg); position: sticky; top: 0; }
+td:first-child, th:first-child { text-align: left; }
+.table-wrap { max-height: 460px; overflow: auto; border: 1px solid var(--line);
+              border-radius: 6px; }
+.controls { margin: .5rem 0 1rem; }
+.controls input { padding: .4rem .6rem; width: 100%; max-width: 320px;
+                  border: 1px solid var(--line); border-radius: 6px; }
+</style></head><body>
+<header><h1>R2R counterfactual diagnostic &mdash; calculation trace</h1>
+<p>Reconstruction: y_nc = y_obs &minus; M @ (u_used &minus; u0) &nbsp;|&nbsp; baseline u0 = 'initial' &nbsp;|&nbsp; generated 2026-06-14 11:19</p></header>
+<main>
+<section><h2>1. Per-lot arithmetic derivations</h2>
+<p class='note'>Each block expands the reconstruction for one measured lot, term by term. 62 lot(s) shown.</p>
+<div class='controls'><input id='lotSearch' placeholder='filter by lot id&hellip;' oninput="filterLots('lotSearch','derivs')"></div>
+<div id='derivs'><details><summary>Lot L0000  (process_id=P1, tool_id=T1)  @ 2026-01-01 00:00:00</summary><pre class='derivation'>Lot L0000  (process_id=P1, tool_id=T1)  @ 2026-01-01 00:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.584 - 10.000 = 79.584
+    knob[1]: 51.669 - 5.000 = 46.669
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.584 + 0.200·46.669
+               = 79.584 + 9.334
+               = 88.918
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.457 - 88.918 = 11.539
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 0.539
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.584 + 0.800·46.669
+               = 7.958 + 37.335
+               = 45.294
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.620 - 45.294 = 5.326
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 0.326</pre></details>
+<details><summary>Lot L0003  (process_id=P1, tool_id=T1)  @ 2026-01-01 03:00:00</summary><pre class='derivation'>Lot L0003  (process_id=P1, tool_id=T1)  @ 2026-01-01 03:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 90.009 - 10.000 = 80.009
+    knob[1]: 51.160 - 5.000 = 46.160
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·80.009 + 0.200·46.160
+               = 80.009 + 9.232
+               = 89.241
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.857 - 89.241 = 10.617
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -0.383
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·80.009 + 0.800·46.160
+               = 8.001 + 36.928
+               = 44.929
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.105 - 44.929 = 6.176
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 1.176</pre></details>
+<details><summary>Lot L0014  (process_id=P1, tool_id=T1)  @ 2026-01-01 14:00:00</summary><pre class='derivation'>Lot L0014  (process_id=P1, tool_id=T1)  @ 2026-01-01 14:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.370 - 10.000 = 79.370
+    knob[1]: 50.684 - 5.000 = 45.684
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.370 + 0.200·45.684
+               = 79.370 + 9.137
+               = 88.507
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.141 - 88.507 = 11.634
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 0.634
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.370 + 0.800·45.684
+               = 7.937 + 36.547
+               = 44.484
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.028 - 44.484 = 7.544
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 2.544</pre></details>
+<details><summary>Lot L0023  (process_id=P1, tool_id=T1)  @ 2026-01-01 23:00:00</summary><pre class='derivation'>Lot L0023  (process_id=P1, tool_id=T1)  @ 2026-01-01 23:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.789 - 10.000 = 79.789
+    knob[1]: 50.003 - 5.000 = 45.003
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.789 + 0.200·45.003
+               = 79.789 + 9.001
+               = 88.790
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.523 - 88.790 = 9.733
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.267
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.789 + 0.800·45.003
+               = 7.979 + 36.003
+               = 43.982
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 54.034 - 43.982 = 10.053
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 5.053</pre></details>
+<details><summary>Lot L0040  (process_id=P1, tool_id=T1)  @ 2026-01-02 16:00:00</summary><pre class='derivation'>Lot L0040  (process_id=P1, tool_id=T1)  @ 2026-01-02 16:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 90.748 - 10.000 = 80.748
+    knob[1]: 48.400 - 5.000 = 43.400
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·80.748 + 0.200·43.400
+               = 80.748 + 8.680
+               = 89.428
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.833 - 89.428 = 12.405
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 1.405
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·80.748 + 0.800·43.400
+               = 8.075 + 34.720
+               = 42.795
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.391 - 42.795 = 9.596
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 4.596</pre></details>
+<details><summary>Lot L0055  (process_id=P1, tool_id=T1)  @ 2026-01-03 07:00:00</summary><pre class='derivation'>Lot L0055  (process_id=P1, tool_id=T1)  @ 2026-01-03 07:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 90.456 - 10.000 = 80.456
+    knob[1]: 47.687 - 5.000 = 42.687
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·80.456 + 0.200·42.687
+               = 80.456 + 8.537
+               = 88.994
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.340 - 88.994 = 12.346
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 1.346
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·80.456 + 0.800·42.687
+               = 8.046 + 34.150
+               = 42.195
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.301 - 42.195 = 7.106
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 2.106</pre></details>
+<details><summary>Lot L0060  (process_id=P1, tool_id=T1)  @ 2026-01-03 12:00:00</summary><pre class='derivation'>Lot L0060  (process_id=P1, tool_id=T1)  @ 2026-01-03 12:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.747 - 10.000 = 79.747
+    knob[1]: 47.283 - 5.000 = 42.283
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.747 + 0.200·42.283
+               = 79.747 + 8.457
+               = 88.204
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.908 - 88.204 = 10.705
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -0.295
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.747 + 0.800·42.283
+               = 7.975 + 33.827
+               = 41.801
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.179 - 41.801 = 5.378
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 0.378</pre></details>
+<details><summary>Lot L0062  (process_id=P1, tool_id=T1)  @ 2026-01-03 14:00:00</summary><pre class='derivation'>Lot L0062  (process_id=P1, tool_id=T1)  @ 2026-01-03 14:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.655 - 10.000 = 79.655
+    knob[1]: 48.965 - 5.000 = 43.965
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.655 + 0.200·43.965
+               = 79.655 + 8.793
+               = 88.448
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.014 - 88.448 = 10.567
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -0.433
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.655 + 0.800·43.965
+               = 7.965 + 35.172
+               = 43.137
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.539 - 43.137 = 8.402
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = 3.402</pre></details>
+<details><summary>Lot L0078  (process_id=P1, tool_id=T1)  @ 2026-01-04 06:00:00</summary><pre class='derivation'>Lot L0078  (process_id=P1, tool_id=T1)  @ 2026-01-04 06:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.855 - 10.000 = 79.855
+    knob[1]: 48.298 - 5.000 = 43.298
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.855 + 0.200·43.298
+               = 79.855 + 8.660
+               = 88.515
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 94.994 - 88.515 = 6.479
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -4.521
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.855 + 0.800·43.298
+               = 7.986 + 34.638
+               = 42.624
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.416 - 42.624 = 4.792
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -0.208</pre></details>
+<details><summary>Lot L0084  (process_id=P1, tool_id=T1)  @ 2026-01-04 12:00:00</summary><pre class='derivation'>Lot L0084  (process_id=P1, tool_id=T1)  @ 2026-01-04 12:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 91.321 - 10.000 = 81.321
+    knob[1]: 49.131 - 5.000 = 44.131
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·81.321 + 0.200·44.131
+               = 81.321 + 8.826
+               = 90.147
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.499 - 90.147 = 9.352
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.648
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·81.321 + 0.800·44.131
+               = 8.132 + 35.305
+               = 43.437
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 44.639 - 43.437 = 1.202
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.798</pre></details>
+<details><summary>Lot L0086  (process_id=P1, tool_id=T1)  @ 2026-01-04 14:00:00</summary><pre class='derivation'>Lot L0086  (process_id=P1, tool_id=T1)  @ 2026-01-04 14:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 91.469 - 10.000 = 81.469
+    knob[1]: 51.191 - 5.000 = 46.191
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·81.469 + 0.200·46.191
+               = 81.469 + 9.238
+               = 90.708
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.390 - 90.708 = 6.683
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -4.317
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·81.469 + 0.800·46.191
+               = 8.147 + 36.953
+               = 45.100
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.376 - 45.100 = 4.276
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -0.724</pre></details>
+<details><summary>Lot L0090  (process_id=P1, tool_id=T1)  @ 2026-01-04 18:00:00</summary><pre class='derivation'>Lot L0090  (process_id=P1, tool_id=T1)  @ 2026-01-04 18:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 92.029 - 10.000 = 82.029
+    knob[1]: 51.394 - 5.000 = 46.394
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·82.029 + 0.200·46.394
+               = 82.029 + 9.279
+               = 91.308
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.823 - 91.308 = 9.515
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.485
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·82.029 + 0.800·46.394
+               = 8.203 + 37.115
+               = 45.318
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.797 - 45.318 = 2.479
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -2.521</pre></details>
+<details><summary>Lot L0104  (process_id=P1, tool_id=T1)  @ 2026-01-05 08:00:00</summary><pre class='derivation'>Lot L0104  (process_id=P1, tool_id=T1)  @ 2026-01-05 08:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 91.809 - 10.000 = 81.809
+    knob[1]: 52.156 - 5.000 = 47.156
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·81.809 + 0.200·47.156
+               = 81.809 + 9.431
+               = 91.240
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.011 - 91.240 = 6.770
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -4.230
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·81.809 + 0.800·47.156
+               = 8.181 + 37.725
+               = 45.906
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 46.172 - 45.906 = 0.266
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.734</pre></details>
+<details><summary>Lot L0113  (process_id=P1, tool_id=T1)  @ 2026-01-05 17:00:00</summary><pre class='derivation'>Lot L0113  (process_id=P1, tool_id=T1)  @ 2026-01-05 17:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 92.200 - 10.000 = 82.200
+    knob[1]: 53.458 - 5.000 = 48.458
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·82.200 + 0.200·48.458
+               = 82.200 + 9.692
+               = 91.892
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.892 - 91.892 = 10.000
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.000
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·82.200 + 0.800·48.458
+               = 8.220 + 38.767
+               = 46.987
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 46.664 - 46.987 = -0.323
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.323</pre></details>
+<details><summary>Lot L0114  (process_id=P1, tool_id=T1)  @ 2026-01-05 18:00:00</summary><pre class='derivation'>Lot L0114  (process_id=P1, tool_id=T1)  @ 2026-01-05 18:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 91.732 - 10.000 = 81.732
+    knob[1]: 54.642 - 5.000 = 49.642
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·81.732 + 0.200·49.642
+               = 81.732 + 9.928
+               = 91.660
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 102.161 - 91.660 = 10.500
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -0.500
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·81.732 + 0.800·49.642
+               = 8.173 + 39.713
+               = 47.886
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.384 - 47.886 = -0.502
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.502</pre></details>
+<details><summary>Lot L0124  (process_id=P1, tool_id=T1)  @ 2026-01-06 04:00:00</summary><pre class='derivation'>Lot L0124  (process_id=P1, tool_id=T1)  @ 2026-01-06 04:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.836 - 10.000 = 79.836
+    knob[1]: 56.279 - 5.000 = 51.279
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.836 + 0.200·51.279
+               = 79.836 + 10.256
+               = 90.092
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.753 - 90.092 = 11.661
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 0.661
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.836 + 0.800·51.279
+               = 7.984 + 41.023
+               = 49.007
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.940 - 49.007 = -1.067
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.067</pre></details>
+<details><summary>Lot L0131  (process_id=P1, tool_id=T1)  @ 2026-01-06 11:00:00</summary><pre class='derivation'>Lot L0131  (process_id=P1, tool_id=T1)  @ 2026-01-06 11:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 89.724 - 10.000 = 79.724
+    knob[1]: 57.007 - 5.000 = 52.007
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·79.724 + 0.200·52.007
+               = 79.724 + 10.401
+               = 90.126
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 104.839 - 90.126 = 14.714
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.714
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·79.724 + 0.800·52.007
+               = 7.972 + 41.605
+               = 49.578
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.294 - 49.578 = 0.716
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.284</pre></details>
+<details><summary>Lot L0135  (process_id=P1, tool_id=T1)  @ 2026-01-06 15:00:00</summary><pre class='derivation'>Lot L0135  (process_id=P1, tool_id=T1)  @ 2026-01-06 15:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 88.409 - 10.000 = 78.409
+    knob[1]: 56.582 - 5.000 = 51.582
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·78.409 + 0.200·51.582
+               = 78.409 + 10.316
+               = 88.726
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 102.491 - 88.726 = 13.765
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.765
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·78.409 + 0.800·51.582
+               = 7.841 + 41.265
+               = 49.106
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.432 - 49.106 = 2.326
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -2.674</pre></details>
+<details><summary>Lot L0136  (process_id=P1, tool_id=T1)  @ 2026-01-06 16:00:00</summary><pre class='derivation'>Lot L0136  (process_id=P1, tool_id=T1)  @ 2026-01-06 16:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 87.322 - 10.000 = 77.322
+    knob[1]: 56.458 - 5.000 = 51.458
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·77.322 + 0.200·51.458
+               = 77.322 + 10.292
+               = 87.613
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.600 - 87.613 = 13.987
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.987
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·77.322 + 0.800·51.458
+               = 7.732 + 41.167
+               = 48.899
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.046 - 48.899 = 2.147
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -2.853</pre></details>
+<details><summary>Lot L0138  (process_id=P1, tool_id=T1)  @ 2026-01-06 18:00:00</summary><pre class='derivation'>Lot L0138  (process_id=P1, tool_id=T1)  @ 2026-01-06 18:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 87.501 - 10.000 = 77.501
+    knob[1]: 56.572 - 5.000 = 51.572
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·77.501 + 0.200·51.572
+               = 77.501 + 10.314
+               = 87.815
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.321 - 87.815 = 13.506
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.506
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·77.501 + 0.800·51.572
+               = 7.750 + 41.257
+               = 49.007
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.205 - 49.007 = 0.197
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.803</pre></details>
+<details><summary>Lot L0145  (process_id=P1, tool_id=T1)  @ 2026-01-07 01:00:00</summary><pre class='derivation'>Lot L0145  (process_id=P1, tool_id=T1)  @ 2026-01-07 01:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.536 - 10.000 = 76.536
+    knob[1]: 56.015 - 5.000 = 51.015
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.536 + 0.200·51.015
+               = 76.536 + 10.203
+               = 86.739
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.687 - 86.739 = 13.948
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.948
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.536 + 0.800·51.015
+               = 7.654 + 40.812
+               = 48.466
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.358 - 48.466 = -0.108
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.108</pre></details>
+<details><summary>Lot L0147  (process_id=P1, tool_id=T1)  @ 2026-01-07 03:00:00</summary><pre class='derivation'>Lot L0147  (process_id=P1, tool_id=T1)  @ 2026-01-07 03:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.186 - 10.000 = 76.186
+    knob[1]: 57.050 - 5.000 = 52.050
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.186 + 0.200·52.050
+               = 76.186 + 10.410
+               = 86.596
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.112 - 86.596 = 13.516
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.516
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.186 + 0.800·52.050
+               = 7.619 + 41.640
+               = 49.259
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.414 - 49.259 = 1.155
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.845</pre></details>
+<details><summary>Lot L0148  (process_id=P1, tool_id=T1)  @ 2026-01-07 04:00:00</summary><pre class='derivation'>Lot L0148  (process_id=P1, tool_id=T1)  @ 2026-01-07 04:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.556 - 10.000 = 76.556
+    knob[1]: 57.332 - 5.000 = 52.332
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.556 + 0.200·52.332
+               = 76.556 + 10.466
+               = 87.023
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.756 - 87.023 = 12.734
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 1.734
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.556 + 0.800·52.332
+               = 7.656 + 41.865
+               = 49.521
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.788 - 49.521 = 1.267
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.733</pre></details>
+<details><summary>Lot L0166  (process_id=P1, tool_id=T1)  @ 2026-01-07 22:00:00</summary><pre class='derivation'>Lot L0166  (process_id=P1, tool_id=T1)  @ 2026-01-07 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.706 - 10.000 = 76.706
+    knob[1]: 56.216 - 5.000 = 51.216
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.706 + 0.200·51.216
+               = 76.706 + 10.243
+               = 86.950
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.391 - 86.950 = 13.441
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.441
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.706 + 0.800·51.216
+               = 7.671 + 40.973
+               = 48.644
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.592 - 48.644 = 1.948
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.052</pre></details>
+<details><summary>Lot L0168  (process_id=P1, tool_id=T1)  @ 2026-01-08 00:00:00</summary><pre class='derivation'>Lot L0168  (process_id=P1, tool_id=T1)  @ 2026-01-08 00:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.554 - 10.000 = 76.554
+    knob[1]: 56.713 - 5.000 = 51.713
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.554 + 0.200·51.713
+               = 76.554 + 10.343
+               = 86.897
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.274 - 86.897 = 14.377
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.377
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.554 + 0.800·51.713
+               = 7.655 + 41.371
+               = 49.026
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.714 - 49.026 = 1.688
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.312</pre></details>
+<details><summary>Lot L0169  (process_id=P1, tool_id=T1)  @ 2026-01-08 01:00:00</summary><pre class='derivation'>Lot L0169  (process_id=P1, tool_id=T1)  @ 2026-01-08 01:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 85.984 - 10.000 = 75.984
+    knob[1]: 55.797 - 5.000 = 50.797
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·75.984 + 0.200·50.797
+               = 75.984 + 10.159
+               = 86.144
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.719 - 86.144 = 13.576
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.576
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·75.984 + 0.800·50.797
+               = 7.598 + 40.638
+               = 48.236
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.615 - 48.236 = 2.379
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -2.621</pre></details>
+<details><summary>Lot L0174  (process_id=P1, tool_id=T1)  @ 2026-01-08 06:00:00</summary><pre class='derivation'>Lot L0174  (process_id=P1, tool_id=T1)  @ 2026-01-08 06:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.226 - 10.000 = 76.226
+    knob[1]: 56.319 - 5.000 = 51.319
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.226 + 0.200·51.319
+               = 76.226 + 10.264
+               = 86.489
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.970 - 86.489 = 14.480
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.480
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.226 + 0.800·51.319
+               = 7.623 + 41.055
+               = 48.678
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.046 - 48.678 = -1.632
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.632</pre></details>
+<details><summary>Lot L0180  (process_id=P1, tool_id=T1)  @ 2026-01-08 12:00:00</summary><pre class='derivation'>Lot L0180  (process_id=P1, tool_id=T1)  @ 2026-01-08 12:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 85.611 - 10.000 = 75.611
+    knob[1]: 56.943 - 5.000 = 51.943
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·75.611 + 0.200·51.943
+               = 75.611 + 10.389
+               = 85.999
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.484 - 85.999 = 14.484
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.484
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·75.611 + 0.800·51.943
+               = 7.561 + 41.555
+               = 49.116
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.232 - 49.116 = -1.884
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.884</pre></details>
+<details><summary>Lot L0190  (process_id=P1, tool_id=T1)  @ 2026-01-08 22:00:00</summary><pre class='derivation'>Lot L0190  (process_id=P1, tool_id=T1)  @ 2026-01-08 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 85.723 - 10.000 = 75.723
+    knob[1]: 57.791 - 5.000 = 52.791
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·75.723 + 0.200·52.791
+               = 75.723 + 10.558
+               = 86.281
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.229 - 86.281 = 13.948
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.948
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·75.723 + 0.800·52.791
+               = 7.572 + 42.233
+               = 49.805
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.514 - 49.805 = 0.709
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.291</pre></details>
+<details><summary>Lot L0191  (process_id=P1, tool_id=T1)  @ 2026-01-08 23:00:00</summary><pre class='derivation'>Lot L0191  (process_id=P1, tool_id=T1)  @ 2026-01-08 23:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.765 - 10.000 = 74.765
+    knob[1]: 58.432 - 5.000 = 53.432
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.765 + 0.200·53.432
+               = 74.765 + 10.686
+               = 85.452
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.867 - 85.452 = 15.415
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 4.415
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.765 + 0.800·53.432
+               = 7.477 + 42.746
+               = 50.222
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.180 - 50.222 = 0.958
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.042</pre></details>
+<details><summary>Lot L0196  (process_id=P1, tool_id=T1)  @ 2026-01-09 04:00:00</summary><pre class='derivation'>Lot L0196  (process_id=P1, tool_id=T1)  @ 2026-01-09 04:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 85.233 - 10.000 = 75.233
+    knob[1]: 57.370 - 5.000 = 52.370
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·75.233 + 0.200·52.370
+               = 75.233 + 10.474
+               = 85.707
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.463 - 85.707 = 14.757
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.757
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·75.233 + 0.800·52.370
+               = 7.523 + 41.896
+               = 49.420
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.972 - 49.420 = 3.553
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -1.447</pre></details>
+<details><summary>Lot L0198  (process_id=P1, tool_id=T1)  @ 2026-01-09 06:00:00</summary><pre class='derivation'>Lot L0198  (process_id=P1, tool_id=T1)  @ 2026-01-09 06:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.783 - 10.000 = 74.783
+    knob[1]: 56.533 - 5.000 = 51.533
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.783 + 0.200·51.533
+               = 74.783 + 10.307
+               = 85.090
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.612 - 85.090 = 16.522
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.522
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.783 + 0.800·51.533
+               = 7.478 + 41.226
+               = 48.705
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.692 - 48.705 = 2.987
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -2.013</pre></details>
+<details><summary>Lot L0210  (process_id=P1, tool_id=T1)  @ 2026-01-09 18:00:00</summary><pre class='derivation'>Lot L0210  (process_id=P1, tool_id=T1)  @ 2026-01-09 18:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.365 - 10.000 = 74.365
+    knob[1]: 56.058 - 5.000 = 51.058
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.365 + 0.200·51.058
+               = 74.365 + 10.212
+               = 84.577
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.615 - 84.577 = 17.039
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.039
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.365 + 0.800·51.058
+               = 7.437 + 40.846
+               = 48.283
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.530 - 48.283 = 1.247
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.753</pre></details>
+<details><summary>Lot L0212  (process_id=P1, tool_id=T1)  @ 2026-01-09 20:00:00</summary><pre class='derivation'>Lot L0212  (process_id=P1, tool_id=T1)  @ 2026-01-09 20:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.664 - 10.000 = 74.664
+    knob[1]: 56.373 - 5.000 = 51.373
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.664 + 0.200·51.373
+               = 74.664 + 10.275
+               = 84.939
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 102.909 - 84.939 = 17.970
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.970
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.664 + 0.800·51.373
+               = 7.466 + 41.098
+               = 48.565
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.705 - 48.565 = 0.141
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.859</pre></details>
+<details><summary>Lot L0214  (process_id=P1, tool_id=T1)  @ 2026-01-09 22:00:00</summary><pre class='derivation'>Lot L0214  (process_id=P1, tool_id=T1)  @ 2026-01-09 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 83.417 - 10.000 = 73.417
+    knob[1]: 56.961 - 5.000 = 51.961
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·73.417 + 0.200·51.961
+               = 73.417 + 10.392
+               = 83.809
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.633 - 83.809 = 16.823
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.823
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·73.417 + 0.800·51.961
+               = 7.342 + 41.569
+               = 48.911
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.519 - 48.911 = -0.392
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.392</pre></details>
+<details><summary>Lot L0216  (process_id=P1, tool_id=T1)  @ 2026-01-10 00:00:00</summary><pre class='derivation'>Lot L0216  (process_id=P1, tool_id=T1)  @ 2026-01-10 00:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.569 - 10.000 = 72.569
+    knob[1]: 57.843 - 5.000 = 52.843
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.569 + 0.200·52.843
+               = 72.569 + 10.569
+               = 83.137
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.714 - 83.137 = 17.577
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.577
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.569 + 0.800·52.843
+               = 7.257 + 42.274
+               = 49.531
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.703 - 49.531 = -0.828
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.828</pre></details>
+<details><summary>Lot L0237  (process_id=P1, tool_id=T1)  @ 2026-01-10 21:00:00</summary><pre class='derivation'>Lot L0237  (process_id=P1, tool_id=T1)  @ 2026-01-10 21:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.399 - 10.000 = 72.399
+    knob[1]: 58.203 - 5.000 = 53.203
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.399 + 0.200·53.203
+               = 72.399 + 10.641
+               = 83.040
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.916 - 83.040 = 16.877
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.877
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.399 + 0.800·53.203
+               = 7.240 + 42.562
+               = 49.802
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 46.851 - 49.802 = -2.951
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -7.951</pre></details>
+<details><summary>Lot L0243  (process_id=P1, tool_id=T1)  @ 2026-01-11 03:00:00</summary><pre class='derivation'>Lot L0243  (process_id=P1, tool_id=T1)  @ 2026-01-11 03:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.593 - 10.000 = 72.593
+    knob[1]: 59.385 - 5.000 = 54.385
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.593 + 0.200·54.385
+               = 72.593 + 10.877
+               = 83.470
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.138 - 83.470 = 17.668
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.668
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.593 + 0.800·54.385
+               = 7.259 + 43.508
+               = 50.767
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 45.182 - 50.767 = -5.585
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -10.585</pre></details>
+<details><summary>Lot L0246  (process_id=P1, tool_id=T1)  @ 2026-01-11 06:00:00</summary><pre class='derivation'>Lot L0246  (process_id=P1, tool_id=T1)  @ 2026-01-11 06:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.466 - 10.000 = 71.466
+    knob[1]: 61.315 - 5.000 = 56.315
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.466 + 0.200·56.315
+               = 71.466 + 11.263
+               = 82.729
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.717 - 82.729 = 14.988
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.988
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.466 + 0.800·56.315
+               = 7.147 + 45.052
+               = 52.198
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.471 - 52.198 = -4.727
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -9.727</pre></details>
+<details><summary>Lot L0259  (process_id=P1, tool_id=T1)  @ 2026-01-11 19:00:00</summary><pre class='derivation'>Lot L0259  (process_id=P1, tool_id=T1)  @ 2026-01-11 19:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.428 - 10.000 = 72.428
+    knob[1]: 62.302 - 5.000 = 57.302
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.428 + 0.200·57.302
+               = 72.428 + 11.460
+               = 83.888
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.970 - 83.888 = 17.082
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.082
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.428 + 0.800·57.302
+               = 7.243 + 45.841
+               = 53.084
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.009 - 53.084 = -1.075
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.075</pre></details>
+<details><summary>Lot L0264  (process_id=P1, tool_id=T1)  @ 2026-01-12 00:00:00</summary><pre class='derivation'>Lot L0264  (process_id=P1, tool_id=T1)  @ 2026-01-12 00:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.027 - 10.000 = 72.027
+    knob[1]: 61.428 - 5.000 = 56.428
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.027 + 0.200·56.428
+               = 72.027 + 11.286
+               = 83.313
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.810 - 83.313 = 17.497
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.497
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.027 + 0.800·56.428
+               = 7.203 + 45.142
+               = 52.345
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.692 - 52.345 = 0.347
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.653</pre></details>
+<details><summary>Lot L0265  (process_id=P1, tool_id=T1)  @ 2026-01-12 01:00:00</summary><pre class='derivation'>Lot L0265  (process_id=P1, tool_id=T1)  @ 2026-01-12 01:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.303 - 10.000 = 72.303
+    knob[1]: 59.867 - 5.000 = 54.867
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.303 + 0.200·54.867
+               = 72.303 + 10.973
+               = 83.277
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 101.335 - 83.277 = 18.059
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 7.059
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.303 + 0.800·54.867
+               = 7.230 + 43.893
+               = 51.124
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.116 - 51.124 = -0.007
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.007</pre></details>
+<details><summary>Lot L0280  (process_id=P1, tool_id=T1)  @ 2026-01-12 16:00:00</summary><pre class='derivation'>Lot L0280  (process_id=P1, tool_id=T1)  @ 2026-01-12 16:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.656 - 10.000 = 71.656
+    knob[1]: 60.073 - 5.000 = 55.073
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.656 + 0.200·55.073
+               = 71.656 + 11.015
+               = 82.670
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.296 - 82.670 = 17.625
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.625
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.656 + 0.800·55.073
+               = 7.166 + 44.059
+               = 51.224
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 46.863 - 51.224 = -4.361
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -9.361</pre></details>
+<details><summary>Lot L0285  (process_id=P1, tool_id=T1)  @ 2026-01-12 21:00:00</summary><pre class='derivation'>Lot L0285  (process_id=P1, tool_id=T1)  @ 2026-01-12 21:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.623 - 10.000 = 71.623
+    knob[1]: 61.371 - 5.000 = 56.371
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.623 + 0.200·56.371
+               = 71.623 + 11.274
+               = 82.897
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.742 - 82.897 = 17.845
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.845
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.623 + 0.800·56.371
+               = 7.162 + 45.097
+               = 52.259
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.586 - 52.259 = -1.673
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.673</pre></details>
+<details><summary>Lot L0287  (process_id=P1, tool_id=T1)  @ 2026-01-12 23:00:00</summary><pre class='derivation'>Lot L0287  (process_id=P1, tool_id=T1)  @ 2026-01-12 23:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.302 - 10.000 = 71.302
+    knob[1]: 60.766 - 5.000 = 55.766
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.302 + 0.200·55.766
+               = 71.302 + 11.153
+               = 82.455
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.638 - 82.455 = 16.183
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.183
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.302 + 0.800·55.766
+               = 7.130 + 44.613
+               = 51.743
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.045 - 51.743 = -0.698
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.698</pre></details>
+<details><summary>Lot L0290  (process_id=P1, tool_id=T1)  @ 2026-01-13 02:00:00</summary><pre class='derivation'>Lot L0290  (process_id=P1, tool_id=T1)  @ 2026-01-13 02:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.736 - 10.000 = 71.736
+    knob[1]: 60.065 - 5.000 = 55.065
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.736 + 0.200·55.065
+               = 71.736 + 11.013
+               = 82.749
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 99.799 - 82.749 = 17.050
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 6.050
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.736 + 0.800·55.065
+               = 7.174 + 44.052
+               = 51.225
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.676 - 51.225 = -0.549
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.549</pre></details>
+<details><summary>Lot L0300  (process_id=P1, tool_id=T1)  @ 2026-01-13 12:00:00</summary><pre class='derivation'>Lot L0300  (process_id=P1, tool_id=T1)  @ 2026-01-13 12:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.474 - 10.000 = 72.474
+    knob[1]: 59.806 - 5.000 = 54.806
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.474 + 0.200·54.806
+               = 72.474 + 10.961
+               = 83.435
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.014 - 83.435 = 16.579
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.579
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.474 + 0.800·54.806
+               = 7.247 + 43.845
+               = 51.092
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.706 - 51.092 = 0.613
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.387</pre></details>
+<details><summary>Lot L0306  (process_id=P1, tool_id=T1)  @ 2026-01-13 18:00:00</summary><pre class='derivation'>Lot L0306  (process_id=P1, tool_id=T1)  @ 2026-01-13 18:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 81.239 - 10.000 = 71.239
+    knob[1]: 59.764 - 5.000 = 54.764
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·71.239 + 0.200·54.764
+               = 71.239 + 10.953
+               = 82.192
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.236 - 82.192 = 16.044
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.044
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·71.239 + 0.800·54.764
+               = 7.124 + 43.811
+               = 50.935
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.046 - 50.935 = 1.110
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -3.890</pre></details>
+<details><summary>Lot L0310  (process_id=P1, tool_id=T1)  @ 2026-01-13 22:00:00</summary><pre class='derivation'>Lot L0310  (process_id=P1, tool_id=T1)  @ 2026-01-13 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.360 - 10.000 = 72.360
+    knob[1]: 58.484 - 5.000 = 53.484
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.360 + 0.200·53.484
+               = 72.360 + 10.697
+               = 83.057
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.980 - 83.057 = 15.923
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 4.923
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.360 + 0.800·53.484
+               = 7.236 + 42.787
+               = 50.023
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 47.862 - 50.023 = -2.161
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -7.161</pre></details>
+<details><summary>Lot L0318  (process_id=P1, tool_id=T1)  @ 2026-01-14 06:00:00</summary><pre class='derivation'>Lot L0318  (process_id=P1, tool_id=T1)  @ 2026-01-14 06:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 83.099 - 10.000 = 73.099
+    knob[1]: 59.755 - 5.000 = 54.755
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·73.099 + 0.200·54.755
+               = 73.099 + 10.951
+               = 84.050
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.965 - 84.050 = 14.915
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.915
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·73.099 + 0.800·54.755
+               = 7.310 + 43.804
+               = 51.114
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.937 - 51.114 = -0.177
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.177</pre></details>
+<details><summary>Lot L0319  (process_id=P1, tool_id=T1)  @ 2026-01-14 07:00:00</summary><pre class='derivation'>Lot L0319  (process_id=P1, tool_id=T1)  @ 2026-01-14 07:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 83.483 - 10.000 = 73.483
+    knob[1]: 58.973 - 5.000 = 53.973
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·73.483 + 0.200·53.973
+               = 73.483 + 10.795
+               = 84.278
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.869 - 84.278 = 14.591
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.591
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·73.483 + 0.800·53.973
+               = 7.348 + 43.178
+               = 50.527
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.525 - 50.527 = -1.001
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.001</pre></details>
+<details><summary>Lot L0324  (process_id=P1, tool_id=T1)  @ 2026-01-14 12:00:00</summary><pre class='derivation'>Lot L0324  (process_id=P1, tool_id=T1)  @ 2026-01-14 12:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 83.590 - 10.000 = 73.590
+    knob[1]: 59.194 - 5.000 = 54.194
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·73.590 + 0.200·54.194
+               = 73.590 + 10.839
+               = 84.428
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.760 - 84.428 = 16.331
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.331
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·73.590 + 0.800·54.194
+               = 7.359 + 43.355
+               = 50.714
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.403 - 50.714 = -1.311
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.311</pre></details>
+<details><summary>Lot L0332  (process_id=P1, tool_id=T1)  @ 2026-01-14 20:00:00</summary><pre class='derivation'>Lot L0332  (process_id=P1, tool_id=T1)  @ 2026-01-14 20:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 83.365 - 10.000 = 73.365
+    knob[1]: 59.074 - 5.000 = 54.074
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·73.365 + 0.200·54.074
+               = 73.365 + 10.815
+               = 84.180
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.115 - 84.180 = 12.935
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 1.935
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·73.365 + 0.800·54.074
+               = 7.337 + 43.259
+               = 50.596
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.639 - 50.596 = -1.957
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.957</pre></details>
+<details><summary>Lot L0337  (process_id=P1, tool_id=T1)  @ 2026-01-15 01:00:00</summary><pre class='derivation'>Lot L0337  (process_id=P1, tool_id=T1)  @ 2026-01-15 01:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 82.970 - 10.000 = 72.970
+    knob[1]: 59.742 - 5.000 = 54.742
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·72.970 + 0.200·54.742
+               = 72.970 + 10.948
+               = 83.919
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.038 - 83.919 = 16.119
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 5.119
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·72.970 + 0.800·54.742
+               = 7.297 + 43.794
+               = 51.091
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 51.101 - 51.091 = 0.010
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.990</pre></details>
+<details><summary>Lot L0344  (process_id=P1, tool_id=T1)  @ 2026-01-15 08:00:00</summary><pre class='derivation'>Lot L0344  (process_id=P1, tool_id=T1)  @ 2026-01-15 08:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.096 - 10.000 = 74.096
+    knob[1]: 59.793 - 5.000 = 54.793
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.096 + 0.200·54.793
+               = 74.096 + 10.959
+               = 85.055
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.123 - 85.055 = 13.069
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 2.069
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.096 + 0.800·54.793
+               = 7.410 + 43.835
+               = 51.244
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 52.029 - 51.244 = 0.784
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -4.216</pre></details>
+<details><summary>Lot L0352  (process_id=P1, tool_id=T1)  @ 2026-01-15 16:00:00</summary><pre class='derivation'>Lot L0352  (process_id=P1, tool_id=T1)  @ 2026-01-15 16:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.703 - 10.000 = 74.703
+    knob[1]: 58.714 - 5.000 = 53.714
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.703 + 0.200·53.714
+               = 74.703 + 10.743
+               = 85.446
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 100.167 - 85.446 = 14.721
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 3.721
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.703 + 0.800·53.714
+               = 7.470 + 42.971
+               = 50.441
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 50.383 - 50.441 = -0.059
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.059</pre></details>
+<details><summary>Lot L0358  (process_id=P1, tool_id=T1)  @ 2026-01-15 22:00:00</summary><pre class='derivation'>Lot L0358  (process_id=P1, tool_id=T1)  @ 2026-01-15 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 84.942 - 10.000 = 74.942
+    knob[1]: 58.535 - 5.000 = 53.535
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·74.942 + 0.200·53.535
+               = 74.942 + 10.707
+               = 85.649
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 95.747 - 85.649 = 10.098
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -0.902
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·74.942 + 0.800·53.535
+               = 7.494 + 42.828
+               = 50.322
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 49.645 - 50.322 = -0.678
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -5.678</pre></details>
+<details><summary>Lot L0363  (process_id=P1, tool_id=T1)  @ 2026-01-16 03:00:00</summary><pre class='derivation'>Lot L0363  (process_id=P1, tool_id=T1)  @ 2026-01-16 03:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.090 - 10.000 = 76.090
+    knob[1]: 57.902 - 5.000 = 52.902
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.090 + 0.200·52.902
+               = 76.090 + 10.580
+               = 86.671
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 98.159 - 86.671 = 11.488
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = 0.488
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.090 + 0.800·52.902
+               = 7.609 + 42.321
+               = 49.930
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.063 - 49.930 = -1.868
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -6.868</pre></details>
+<details><summary>Lot L0380  (process_id=P1, tool_id=T1)  @ 2026-01-16 20:00:00</summary><pre class='derivation'>Lot L0380  (process_id=P1, tool_id=T1)  @ 2026-01-16 20:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 86.762 - 10.000 = 76.762
+    knob[1]: 58.972 - 5.000 = 53.972
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·76.762 + 0.200·53.972
+               = 76.762 + 10.794
+               = 87.556
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.192 - 87.556 = 9.636
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.364
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·76.762 + 0.800·53.972
+               = 7.676 + 43.178
+               = 50.854
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 45.085 - 50.854 = -5.769
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -10.769</pre></details>
+<details><summary>Lot L0382  (process_id=P1, tool_id=T1)  @ 2026-01-16 22:00:00</summary><pre class='derivation'>Lot L0382  (process_id=P1, tool_id=T1)  @ 2026-01-16 22:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 87.034 - 10.000 = 77.034
+    knob[1]: 60.660 - 5.000 = 55.660
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·77.034 + 0.200·55.660
+               = 77.034 + 11.132
+               = 88.166
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.244 - 88.166 = 9.078
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -1.922
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·77.034 + 0.800·55.660
+               = 7.703 + 44.528
+               = 52.231
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 46.366 - 52.231 = -5.865
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -10.865</pre></details>
+<details><summary>Lot L0385  (process_id=P1, tool_id=T1)  @ 2026-01-17 01:00:00</summary><pre class='derivation'>Lot L0385  (process_id=P1, tool_id=T1)  @ 2026-01-17 01:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 87.216 - 10.000 = 77.216
+    knob[1]: 62.293 - 5.000 = 57.293
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·77.216 + 0.200·57.293
+               = 77.216 + 11.459
+               = 88.674
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 97.123 - 88.674 = 8.449
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -2.551
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·77.216 + 0.800·57.293
+               = 7.722 + 45.835
+               = 53.556
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.393 - 53.556 = -5.164
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -10.164</pre></details>
+<details><summary>Lot L0387  (process_id=P1, tool_id=T1)  @ 2026-01-17 03:00:00</summary><pre class='derivation'>Lot L0387  (process_id=P1, tool_id=T1)  @ 2026-01-17 03:00:00
+baseline u0 = &#x27;initial&#x27;
+knob moves  Δu = u_used - u0:
+    knob[0]: 87.719 - 10.000 = 77.719
+    knob[1]: 62.868 - 5.000 = 57.868
+output dim 0:
+  ctrl_eff[0] = Σ M[0,k]·Δu[k] = M[0,0]·Δu[0] + M[0,1]·Δu[1]
+               = 1.000·77.719 + 0.200·57.868
+               = 77.719 + 11.574
+               = 89.293
+  y_nc[0]   = y_obs[0] - ctrl_eff[0] = 96.579 - 89.293 = 7.286
+  d_real[0] = y_obs[0] - Σ M[0,k]·u_used[k] = -3.714
+output dim 1:
+  ctrl_eff[1] = Σ M[1,k]·Δu[k] = M[1,0]·Δu[0] + M[1,1]·Δu[1]
+               = 0.100·77.719 + 0.800·57.868
+               = 7.772 + 46.294
+               = 54.066
+  y_nc[1]   = y_obs[1] - ctrl_eff[1] = 48.032 - 54.066 = -6.035
+  d_real[1] = y_obs[1] - Σ M[1,k]·u_used[k] = -11.035</pre></details></div></section>
+<section><h2>2. Reconstruction trace (term level)</h2>
+<p class='note'>One row per (lot, output dim, knob). <code>term = M &times; delta_u</code>; summing <code>term</code> over knobs gives <code>ctrl_eff</code>, and <code>y_obs &minus; ctrl_eff = y_nc</code>.</p>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>material_id</th>
+      <th>output_dim</th>
+      <th>knob</th>
+      <th>M</th>
+      <th>u_used</th>
+      <th>u0</th>
+      <th>delta_u</th>
+      <th>term</th>
+      <th>ctrl_eff</th>
+      <th>y_obs</th>
+      <th>y_nc</th>
+      <th>d_real</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.58</td>
+      <td>10</td>
+      <td>79.58</td>
+      <td>79.58</td>
+      <td>88.92</td>
+      <td>100.5</td>
+      <td>11.54</td>
+      <td>0.5389</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0000</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>51.67</td>
+      <td>5</td>
+      <td>46.67</td>
+      <td>9.334</td>
+      <td>88.92</td>
+      <td>100.5</td>
+      <td>11.54</td>
+      <td>0.5389</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0000</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.58</td>
+      <td>10</td>
+      <td>79.58</td>
+      <td>7.958</td>
+      <td>45.29</td>
+      <td>50.62</td>
+      <td>5.326</td>
+      <td>0.326</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0000</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>51.67</td>
+      <td>5</td>
+      <td>46.67</td>
+      <td>37.34</td>
+      <td>45.29</td>
+      <td>50.62</td>
+      <td>5.326</td>
+      <td>0.326</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0003</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>90.01</td>
+      <td>10</td>
+      <td>80.01</td>
+      <td>80.01</td>
+      <td>89.24</td>
+      <td>99.86</td>
+      <td>10.62</td>
+      <td>-0.3835</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0003</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>51.16</td>
+      <td>5</td>
+      <td>46.16</td>
+      <td>9.232</td>
+      <td>89.24</td>
+      <td>99.86</td>
+      <td>10.62</td>
+      <td>-0.3835</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0003</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>90.01</td>
+      <td>10</td>
+      <td>80.01</td>
+      <td>8.001</td>
+      <td>44.93</td>
+      <td>51.11</td>
+      <td>6.176</td>
+      <td>1.176</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0003</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>51.16</td>
+      <td>5</td>
+      <td>46.16</td>
+      <td>36.93</td>
+      <td>44.93</td>
+      <td>51.11</td>
+      <td>6.176</td>
+      <td>1.176</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0014</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.37</td>
+      <td>10</td>
+      <td>79.37</td>
+      <td>79.37</td>
+      <td>88.51</td>
+      <td>100.1</td>
+      <td>11.63</td>
+      <td>0.6339</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0014</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>50.68</td>
+      <td>5</td>
+      <td>45.68</td>
+      <td>9.137</td>
+      <td>88.51</td>
+      <td>100.1</td>
+      <td>11.63</td>
+      <td>0.6339</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0014</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.37</td>
+      <td>10</td>
+      <td>79.37</td>
+      <td>7.937</td>
+      <td>44.48</td>
+      <td>52.03</td>
+      <td>7.544</td>
+      <td>2.544</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0014</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>50.68</td>
+      <td>5</td>
+      <td>45.68</td>
+      <td>36.55</td>
+      <td>44.48</td>
+      <td>52.03</td>
+      <td>7.544</td>
+      <td>2.544</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0023</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.79</td>
+      <td>10</td>
+      <td>79.79</td>
+      <td>79.79</td>
+      <td>88.79</td>
+      <td>98.52</td>
+      <td>9.733</td>
+      <td>-1.267</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0023</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>50</td>
+      <td>5</td>
+      <td>45</td>
+      <td>9.001</td>
+      <td>88.79</td>
+      <td>98.52</td>
+      <td>9.733</td>
+      <td>-1.267</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0023</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.79</td>
+      <td>10</td>
+      <td>79.79</td>
+      <td>7.979</td>
+      <td>43.98</td>
+      <td>54.03</td>
+      <td>10.05</td>
+      <td>5.053</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0023</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>50</td>
+      <td>5</td>
+      <td>45</td>
+      <td>36</td>
+      <td>43.98</td>
+      <td>54.03</td>
+      <td>10.05</td>
+      <td>5.053</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0040</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>90.75</td>
+      <td>10</td>
+      <td>80.75</td>
+      <td>80.75</td>
+      <td>89.43</td>
+      <td>101.8</td>
+      <td>12.41</td>
+      <td>1.405</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0040</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>48.4</td>
+      <td>5</td>
+      <td>43.4</td>
+      <td>8.68</td>
+      <td>89.43</td>
+      <td>101.8</td>
+      <td>12.41</td>
+      <td>1.405</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0040</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>90.75</td>
+      <td>10</td>
+      <td>80.75</td>
+      <td>8.075</td>
+      <td>42.8</td>
+      <td>52.39</td>
+      <td>9.596</td>
+      <td>4.596</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0040</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>48.4</td>
+      <td>5</td>
+      <td>43.4</td>
+      <td>34.72</td>
+      <td>42.8</td>
+      <td>52.39</td>
+      <td>9.596</td>
+      <td>4.596</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0055</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>90.46</td>
+      <td>10</td>
+      <td>80.46</td>
+      <td>80.46</td>
+      <td>88.99</td>
+      <td>101.3</td>
+      <td>12.35</td>
+      <td>1.346</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0055</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>47.69</td>
+      <td>5</td>
+      <td>42.69</td>
+      <td>8.537</td>
+      <td>88.99</td>
+      <td>101.3</td>
+      <td>12.35</td>
+      <td>1.346</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0055</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>90.46</td>
+      <td>10</td>
+      <td>80.46</td>
+      <td>8.046</td>
+      <td>42.2</td>
+      <td>49.3</td>
+      <td>7.106</td>
+      <td>2.106</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0055</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>47.69</td>
+      <td>5</td>
+      <td>42.69</td>
+      <td>34.15</td>
+      <td>42.2</td>
+      <td>49.3</td>
+      <td>7.106</td>
+      <td>2.106</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0060</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.75</td>
+      <td>10</td>
+      <td>79.75</td>
+      <td>79.75</td>
+      <td>88.2</td>
+      <td>98.91</td>
+      <td>10.7</td>
+      <td>-0.2954</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0060</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>47.28</td>
+      <td>5</td>
+      <td>42.28</td>
+      <td>8.457</td>
+      <td>88.2</td>
+      <td>98.91</td>
+      <td>10.7</td>
+      <td>-0.2954</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0060</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.75</td>
+      <td>10</td>
+      <td>79.75</td>
+      <td>7.975</td>
+      <td>41.8</td>
+      <td>47.18</td>
+      <td>5.378</td>
+      <td>0.3778</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0060</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>47.28</td>
+      <td>5</td>
+      <td>42.28</td>
+      <td>33.83</td>
+      <td>41.8</td>
+      <td>47.18</td>
+      <td>5.378</td>
+      <td>0.3778</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0062</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.65</td>
+      <td>10</td>
+      <td>79.65</td>
+      <td>79.65</td>
+      <td>88.45</td>
+      <td>99.01</td>
+      <td>10.57</td>
+      <td>-0.4333</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0062</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>48.96</td>
+      <td>5</td>
+      <td>43.96</td>
+      <td>8.793</td>
+      <td>88.45</td>
+      <td>99.01</td>
+      <td>10.57</td>
+      <td>-0.4333</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0062</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.65</td>
+      <td>10</td>
+      <td>79.65</td>
+      <td>7.965</td>
+      <td>43.14</td>
+      <td>51.54</td>
+      <td>8.402</td>
+      <td>3.402</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0062</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>48.96</td>
+      <td>5</td>
+      <td>43.96</td>
+      <td>35.17</td>
+      <td>43.14</td>
+      <td>51.54</td>
+      <td>8.402</td>
+      <td>3.402</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0078</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.86</td>
+      <td>10</td>
+      <td>79.86</td>
+      <td>79.86</td>
+      <td>88.51</td>
+      <td>94.99</td>
+      <td>6.479</td>
+      <td>-4.521</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0078</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>48.3</td>
+      <td>5</td>
+      <td>43.3</td>
+      <td>8.66</td>
+      <td>88.51</td>
+      <td>94.99</td>
+      <td>6.479</td>
+      <td>-4.521</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0078</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.86</td>
+      <td>10</td>
+      <td>79.86</td>
+      <td>7.986</td>
+      <td>42.62</td>
+      <td>47.42</td>
+      <td>4.792</td>
+      <td>-0.2077</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0078</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>48.3</td>
+      <td>5</td>
+      <td>43.3</td>
+      <td>34.64</td>
+      <td>42.62</td>
+      <td>47.42</td>
+      <td>4.792</td>
+      <td>-0.2077</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0084</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>91.32</td>
+      <td>10</td>
+      <td>81.32</td>
+      <td>81.32</td>
+      <td>90.15</td>
+      <td>99.5</td>
+      <td>9.352</td>
+      <td>-1.648</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0084</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>49.13</td>
+      <td>5</td>
+      <td>44.13</td>
+      <td>8.826</td>
+      <td>90.15</td>
+      <td>99.5</td>
+      <td>9.352</td>
+      <td>-1.648</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0084</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>91.32</td>
+      <td>10</td>
+      <td>81.32</td>
+      <td>8.132</td>
+      <td>43.44</td>
+      <td>44.64</td>
+      <td>1.202</td>
+      <td>-3.798</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0084</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>49.13</td>
+      <td>5</td>
+      <td>44.13</td>
+      <td>35.3</td>
+      <td>43.44</td>
+      <td>44.64</td>
+      <td>1.202</td>
+      <td>-3.798</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0086</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>91.47</td>
+      <td>10</td>
+      <td>81.47</td>
+      <td>81.47</td>
+      <td>90.71</td>
+      <td>97.39</td>
+      <td>6.683</td>
+      <td>-4.317</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0086</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>51.19</td>
+      <td>5</td>
+      <td>46.19</td>
+      <td>9.238</td>
+      <td>90.71</td>
+      <td>97.39</td>
+      <td>6.683</td>
+      <td>-4.317</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0086</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>91.47</td>
+      <td>10</td>
+      <td>81.47</td>
+      <td>8.147</td>
+      <td>45.1</td>
+      <td>49.38</td>
+      <td>4.276</td>
+      <td>-0.7237</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0086</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>51.19</td>
+      <td>5</td>
+      <td>46.19</td>
+      <td>36.95</td>
+      <td>45.1</td>
+      <td>49.38</td>
+      <td>4.276</td>
+      <td>-0.7237</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0090</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>92.03</td>
+      <td>10</td>
+      <td>82.03</td>
+      <td>82.03</td>
+      <td>91.31</td>
+      <td>100.8</td>
+      <td>9.515</td>
+      <td>-1.485</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0090</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>51.39</td>
+      <td>5</td>
+      <td>46.39</td>
+      <td>9.279</td>
+      <td>91.31</td>
+      <td>100.8</td>
+      <td>9.515</td>
+      <td>-1.485</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0090</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>92.03</td>
+      <td>10</td>
+      <td>82.03</td>
+      <td>8.203</td>
+      <td>45.32</td>
+      <td>47.8</td>
+      <td>2.479</td>
+      <td>-2.521</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0090</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>51.39</td>
+      <td>5</td>
+      <td>46.39</td>
+      <td>37.12</td>
+      <td>45.32</td>
+      <td>47.8</td>
+      <td>2.479</td>
+      <td>-2.521</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0104</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>91.81</td>
+      <td>10</td>
+      <td>81.81</td>
+      <td>81.81</td>
+      <td>91.24</td>
+      <td>98.01</td>
+      <td>6.77</td>
+      <td>-4.23</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0104</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>52.16</td>
+      <td>5</td>
+      <td>47.16</td>
+      <td>9.431</td>
+      <td>91.24</td>
+      <td>98.01</td>
+      <td>6.77</td>
+      <td>-4.23</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0104</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>91.81</td>
+      <td>10</td>
+      <td>81.81</td>
+      <td>8.181</td>
+      <td>45.91</td>
+      <td>46.17</td>
+      <td>0.2661</td>
+      <td>-4.734</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0104</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>52.16</td>
+      <td>5</td>
+      <td>47.16</td>
+      <td>37.72</td>
+      <td>45.91</td>
+      <td>46.17</td>
+      <td>0.2661</td>
+      <td>-4.734</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0113</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>92.2</td>
+      <td>10</td>
+      <td>82.2</td>
+      <td>82.2</td>
+      <td>91.89</td>
+      <td>101.9</td>
+      <td>10</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0113</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>53.46</td>
+      <td>5</td>
+      <td>48.46</td>
+      <td>9.692</td>
+      <td>91.89</td>
+      <td>101.9</td>
+      <td>10</td>
+      <td>-1</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0113</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>92.2</td>
+      <td>10</td>
+      <td>82.2</td>
+      <td>8.22</td>
+      <td>46.99</td>
+      <td>46.66</td>
+      <td>-0.3231</td>
+      <td>-5.323</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0113</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>53.46</td>
+      <td>5</td>
+      <td>48.46</td>
+      <td>38.77</td>
+      <td>46.99</td>
+      <td>46.66</td>
+      <td>-0.3231</td>
+      <td>-5.323</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0114</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>91.73</td>
+      <td>10</td>
+      <td>81.73</td>
+      <td>81.73</td>
+      <td>91.66</td>
+      <td>102.2</td>
+      <td>10.5</td>
+      <td>-0.4996</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0114</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>54.64</td>
+      <td>5</td>
+      <td>49.64</td>
+      <td>9.928</td>
+      <td>91.66</td>
+      <td>102.2</td>
+      <td>10.5</td>
+      <td>-0.4996</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0114</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>91.73</td>
+      <td>10</td>
+      <td>81.73</td>
+      <td>8.173</td>
+      <td>47.89</td>
+      <td>47.38</td>
+      <td>-0.502</td>
+      <td>-5.502</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0114</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>54.64</td>
+      <td>5</td>
+      <td>49.64</td>
+      <td>39.71</td>
+      <td>47.89</td>
+      <td>47.38</td>
+      <td>-0.502</td>
+      <td>-5.502</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0124</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.84</td>
+      <td>10</td>
+      <td>79.84</td>
+      <td>79.84</td>
+      <td>90.09</td>
+      <td>101.8</td>
+      <td>11.66</td>
+      <td>0.6608</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0124</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.28</td>
+      <td>5</td>
+      <td>51.28</td>
+      <td>10.26</td>
+      <td>90.09</td>
+      <td>101.8</td>
+      <td>11.66</td>
+      <td>0.6608</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0124</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.84</td>
+      <td>10</td>
+      <td>79.84</td>
+      <td>7.984</td>
+      <td>49.01</td>
+      <td>47.94</td>
+      <td>-1.067</td>
+      <td>-6.067</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0124</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.28</td>
+      <td>5</td>
+      <td>51.28</td>
+      <td>41.02</td>
+      <td>49.01</td>
+      <td>47.94</td>
+      <td>-1.067</td>
+      <td>-6.067</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0131</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>89.72</td>
+      <td>10</td>
+      <td>79.72</td>
+      <td>79.72</td>
+      <td>90.13</td>
+      <td>104.8</td>
+      <td>14.71</td>
+      <td>3.714</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0131</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.01</td>
+      <td>5</td>
+      <td>52.01</td>
+      <td>10.4</td>
+      <td>90.13</td>
+      <td>104.8</td>
+      <td>14.71</td>
+      <td>3.714</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0131</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>89.72</td>
+      <td>10</td>
+      <td>79.72</td>
+      <td>7.972</td>
+      <td>49.58</td>
+      <td>50.29</td>
+      <td>0.716</td>
+      <td>-4.284</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0131</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.01</td>
+      <td>5</td>
+      <td>52.01</td>
+      <td>41.61</td>
+      <td>49.58</td>
+      <td>50.29</td>
+      <td>0.716</td>
+      <td>-4.284</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0135</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>88.41</td>
+      <td>10</td>
+      <td>78.41</td>
+      <td>78.41</td>
+      <td>88.73</td>
+      <td>102.5</td>
+      <td>13.77</td>
+      <td>2.765</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0135</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.58</td>
+      <td>5</td>
+      <td>51.58</td>
+      <td>10.32</td>
+      <td>88.73</td>
+      <td>102.5</td>
+      <td>13.77</td>
+      <td>2.765</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0135</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>88.41</td>
+      <td>10</td>
+      <td>78.41</td>
+      <td>7.841</td>
+      <td>49.11</td>
+      <td>51.43</td>
+      <td>2.326</td>
+      <td>-2.674</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0135</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.58</td>
+      <td>5</td>
+      <td>51.58</td>
+      <td>41.27</td>
+      <td>49.11</td>
+      <td>51.43</td>
+      <td>2.326</td>
+      <td>-2.674</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0136</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>87.32</td>
+      <td>10</td>
+      <td>77.32</td>
+      <td>77.32</td>
+      <td>87.61</td>
+      <td>101.6</td>
+      <td>13.99</td>
+      <td>2.987</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0136</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.46</td>
+      <td>5</td>
+      <td>51.46</td>
+      <td>10.29</td>
+      <td>87.61</td>
+      <td>101.6</td>
+      <td>13.99</td>
+      <td>2.987</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0136</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>87.32</td>
+      <td>10</td>
+      <td>77.32</td>
+      <td>7.732</td>
+      <td>48.9</td>
+      <td>51.05</td>
+      <td>2.147</td>
+      <td>-2.853</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0136</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.46</td>
+      <td>5</td>
+      <td>51.46</td>
+      <td>41.17</td>
+      <td>48.9</td>
+      <td>51.05</td>
+      <td>2.147</td>
+      <td>-2.853</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0138</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>87.5</td>
+      <td>10</td>
+      <td>77.5</td>
+      <td>77.5</td>
+      <td>87.82</td>
+      <td>101.3</td>
+      <td>13.51</td>
+      <td>2.506</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0138</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.57</td>
+      <td>5</td>
+      <td>51.57</td>
+      <td>10.31</td>
+      <td>87.82</td>
+      <td>101.3</td>
+      <td>13.51</td>
+      <td>2.506</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0138</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>87.5</td>
+      <td>10</td>
+      <td>77.5</td>
+      <td>7.75</td>
+      <td>49.01</td>
+      <td>49.2</td>
+      <td>0.1973</td>
+      <td>-4.803</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0138</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.57</td>
+      <td>5</td>
+      <td>51.57</td>
+      <td>41.26</td>
+      <td>49.01</td>
+      <td>49.2</td>
+      <td>0.1973</td>
+      <td>-4.803</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0145</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.54</td>
+      <td>10</td>
+      <td>76.54</td>
+      <td>76.54</td>
+      <td>86.74</td>
+      <td>100.7</td>
+      <td>13.95</td>
+      <td>2.948</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0145</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.01</td>
+      <td>5</td>
+      <td>51.01</td>
+      <td>10.2</td>
+      <td>86.74</td>
+      <td>100.7</td>
+      <td>13.95</td>
+      <td>2.948</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0145</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.54</td>
+      <td>10</td>
+      <td>76.54</td>
+      <td>7.654</td>
+      <td>48.47</td>
+      <td>48.36</td>
+      <td>-0.108</td>
+      <td>-5.108</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0145</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.01</td>
+      <td>5</td>
+      <td>51.01</td>
+      <td>40.81</td>
+      <td>48.47</td>
+      <td>48.36</td>
+      <td>-0.108</td>
+      <td>-5.108</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0147</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.19</td>
+      <td>10</td>
+      <td>76.19</td>
+      <td>76.19</td>
+      <td>86.6</td>
+      <td>100.1</td>
+      <td>13.52</td>
+      <td>2.516</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0147</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.05</td>
+      <td>5</td>
+      <td>52.05</td>
+      <td>10.41</td>
+      <td>86.6</td>
+      <td>100.1</td>
+      <td>13.52</td>
+      <td>2.516</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0147</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.19</td>
+      <td>10</td>
+      <td>76.19</td>
+      <td>7.619</td>
+      <td>49.26</td>
+      <td>50.41</td>
+      <td>1.155</td>
+      <td>-3.845</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0147</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.05</td>
+      <td>5</td>
+      <td>52.05</td>
+      <td>41.64</td>
+      <td>49.26</td>
+      <td>50.41</td>
+      <td>1.155</td>
+      <td>-3.845</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0148</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.56</td>
+      <td>10</td>
+      <td>76.56</td>
+      <td>76.56</td>
+      <td>87.02</td>
+      <td>99.76</td>
+      <td>12.73</td>
+      <td>1.734</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0148</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.33</td>
+      <td>5</td>
+      <td>52.33</td>
+      <td>10.47</td>
+      <td>87.02</td>
+      <td>99.76</td>
+      <td>12.73</td>
+      <td>1.734</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0148</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.56</td>
+      <td>10</td>
+      <td>76.56</td>
+      <td>7.656</td>
+      <td>49.52</td>
+      <td>50.79</td>
+      <td>1.267</td>
+      <td>-3.733</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0148</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.33</td>
+      <td>5</td>
+      <td>52.33</td>
+      <td>41.87</td>
+      <td>49.52</td>
+      <td>50.79</td>
+      <td>1.267</td>
+      <td>-3.733</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0166</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.71</td>
+      <td>10</td>
+      <td>76.71</td>
+      <td>76.71</td>
+      <td>86.95</td>
+      <td>100.4</td>
+      <td>13.44</td>
+      <td>2.441</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0166</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.22</td>
+      <td>5</td>
+      <td>51.22</td>
+      <td>10.24</td>
+      <td>86.95</td>
+      <td>100.4</td>
+      <td>13.44</td>
+      <td>2.441</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0166</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.71</td>
+      <td>10</td>
+      <td>76.71</td>
+      <td>7.671</td>
+      <td>48.64</td>
+      <td>50.59</td>
+      <td>1.948</td>
+      <td>-3.052</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0166</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.22</td>
+      <td>5</td>
+      <td>51.22</td>
+      <td>40.97</td>
+      <td>48.64</td>
+      <td>50.59</td>
+      <td>1.948</td>
+      <td>-3.052</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0168</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.55</td>
+      <td>10</td>
+      <td>76.55</td>
+      <td>76.55</td>
+      <td>86.9</td>
+      <td>101.3</td>
+      <td>14.38</td>
+      <td>3.377</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0168</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.71</td>
+      <td>5</td>
+      <td>51.71</td>
+      <td>10.34</td>
+      <td>86.9</td>
+      <td>101.3</td>
+      <td>14.38</td>
+      <td>3.377</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0168</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.55</td>
+      <td>10</td>
+      <td>76.55</td>
+      <td>7.655</td>
+      <td>49.03</td>
+      <td>50.71</td>
+      <td>1.688</td>
+      <td>-3.312</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0168</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.71</td>
+      <td>5</td>
+      <td>51.71</td>
+      <td>41.37</td>
+      <td>49.03</td>
+      <td>50.71</td>
+      <td>1.688</td>
+      <td>-3.312</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0169</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>85.98</td>
+      <td>10</td>
+      <td>75.98</td>
+      <td>75.98</td>
+      <td>86.14</td>
+      <td>99.72</td>
+      <td>13.58</td>
+      <td>2.576</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0169</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>55.8</td>
+      <td>5</td>
+      <td>50.8</td>
+      <td>10.16</td>
+      <td>86.14</td>
+      <td>99.72</td>
+      <td>13.58</td>
+      <td>2.576</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0169</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>85.98</td>
+      <td>10</td>
+      <td>75.98</td>
+      <td>7.598</td>
+      <td>48.24</td>
+      <td>50.62</td>
+      <td>2.379</td>
+      <td>-2.621</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0169</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>55.8</td>
+      <td>5</td>
+      <td>50.8</td>
+      <td>40.64</td>
+      <td>48.24</td>
+      <td>50.62</td>
+      <td>2.379</td>
+      <td>-2.621</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0174</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.23</td>
+      <td>10</td>
+      <td>76.23</td>
+      <td>76.23</td>
+      <td>86.49</td>
+      <td>101</td>
+      <td>14.48</td>
+      <td>3.48</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0174</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.32</td>
+      <td>5</td>
+      <td>51.32</td>
+      <td>10.26</td>
+      <td>86.49</td>
+      <td>101</td>
+      <td>14.48</td>
+      <td>3.48</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0174</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.23</td>
+      <td>10</td>
+      <td>76.23</td>
+      <td>7.623</td>
+      <td>48.68</td>
+      <td>47.05</td>
+      <td>-1.632</td>
+      <td>-6.632</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0174</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.32</td>
+      <td>5</td>
+      <td>51.32</td>
+      <td>41.06</td>
+      <td>48.68</td>
+      <td>47.05</td>
+      <td>-1.632</td>
+      <td>-6.632</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0180</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>85.61</td>
+      <td>10</td>
+      <td>75.61</td>
+      <td>75.61</td>
+      <td>86</td>
+      <td>100.5</td>
+      <td>14.48</td>
+      <td>3.484</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0180</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.94</td>
+      <td>5</td>
+      <td>51.94</td>
+      <td>10.39</td>
+      <td>86</td>
+      <td>100.5</td>
+      <td>14.48</td>
+      <td>3.484</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0180</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>85.61</td>
+      <td>10</td>
+      <td>75.61</td>
+      <td>7.561</td>
+      <td>49.12</td>
+      <td>47.23</td>
+      <td>-1.884</td>
+      <td>-6.884</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0180</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.94</td>
+      <td>5</td>
+      <td>51.94</td>
+      <td>41.55</td>
+      <td>49.12</td>
+      <td>47.23</td>
+      <td>-1.884</td>
+      <td>-6.884</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0190</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>85.72</td>
+      <td>10</td>
+      <td>75.72</td>
+      <td>75.72</td>
+      <td>86.28</td>
+      <td>100.2</td>
+      <td>13.95</td>
+      <td>2.948</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0190</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.79</td>
+      <td>5</td>
+      <td>52.79</td>
+      <td>10.56</td>
+      <td>86.28</td>
+      <td>100.2</td>
+      <td>13.95</td>
+      <td>2.948</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0190</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>85.72</td>
+      <td>10</td>
+      <td>75.72</td>
+      <td>7.572</td>
+      <td>49.8</td>
+      <td>50.51</td>
+      <td>0.7087</td>
+      <td>-4.291</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0190</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.79</td>
+      <td>5</td>
+      <td>52.79</td>
+      <td>42.23</td>
+      <td>49.8</td>
+      <td>50.51</td>
+      <td>0.7087</td>
+      <td>-4.291</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0191</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.77</td>
+      <td>10</td>
+      <td>74.77</td>
+      <td>74.77</td>
+      <td>85.45</td>
+      <td>100.9</td>
+      <td>15.42</td>
+      <td>4.415</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0191</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.43</td>
+      <td>5</td>
+      <td>53.43</td>
+      <td>10.69</td>
+      <td>85.45</td>
+      <td>100.9</td>
+      <td>15.42</td>
+      <td>4.415</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0191</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.77</td>
+      <td>10</td>
+      <td>74.77</td>
+      <td>7.477</td>
+      <td>50.22</td>
+      <td>51.18</td>
+      <td>0.958</td>
+      <td>-4.042</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0191</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.43</td>
+      <td>5</td>
+      <td>53.43</td>
+      <td>42.75</td>
+      <td>50.22</td>
+      <td>51.18</td>
+      <td>0.958</td>
+      <td>-4.042</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0196</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>85.23</td>
+      <td>10</td>
+      <td>75.23</td>
+      <td>75.23</td>
+      <td>85.71</td>
+      <td>100.5</td>
+      <td>14.76</td>
+      <td>3.757</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0196</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.37</td>
+      <td>5</td>
+      <td>52.37</td>
+      <td>10.47</td>
+      <td>85.71</td>
+      <td>100.5</td>
+      <td>14.76</td>
+      <td>3.757</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0196</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>85.23</td>
+      <td>10</td>
+      <td>75.23</td>
+      <td>7.523</td>
+      <td>49.42</td>
+      <td>52.97</td>
+      <td>3.553</td>
+      <td>-1.447</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0196</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.37</td>
+      <td>5</td>
+      <td>52.37</td>
+      <td>41.9</td>
+      <td>49.42</td>
+      <td>52.97</td>
+      <td>3.553</td>
+      <td>-1.447</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0198</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.78</td>
+      <td>10</td>
+      <td>74.78</td>
+      <td>74.78</td>
+      <td>85.09</td>
+      <td>101.6</td>
+      <td>16.52</td>
+      <td>5.522</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0198</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.53</td>
+      <td>5</td>
+      <td>51.53</td>
+      <td>10.31</td>
+      <td>85.09</td>
+      <td>101.6</td>
+      <td>16.52</td>
+      <td>5.522</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0198</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.78</td>
+      <td>10</td>
+      <td>74.78</td>
+      <td>7.478</td>
+      <td>48.7</td>
+      <td>51.69</td>
+      <td>2.987</td>
+      <td>-2.013</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0198</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.53</td>
+      <td>5</td>
+      <td>51.53</td>
+      <td>41.23</td>
+      <td>48.7</td>
+      <td>51.69</td>
+      <td>2.987</td>
+      <td>-2.013</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0210</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.37</td>
+      <td>10</td>
+      <td>74.37</td>
+      <td>74.37</td>
+      <td>84.58</td>
+      <td>101.6</td>
+      <td>17.04</td>
+      <td>6.039</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0210</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.06</td>
+      <td>5</td>
+      <td>51.06</td>
+      <td>10.21</td>
+      <td>84.58</td>
+      <td>101.6</td>
+      <td>17.04</td>
+      <td>6.039</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0210</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.37</td>
+      <td>10</td>
+      <td>74.37</td>
+      <td>7.437</td>
+      <td>48.28</td>
+      <td>49.53</td>
+      <td>1.247</td>
+      <td>-3.753</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0210</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.06</td>
+      <td>5</td>
+      <td>51.06</td>
+      <td>40.85</td>
+      <td>48.28</td>
+      <td>49.53</td>
+      <td>1.247</td>
+      <td>-3.753</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0212</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.66</td>
+      <td>10</td>
+      <td>74.66</td>
+      <td>74.66</td>
+      <td>84.94</td>
+      <td>102.9</td>
+      <td>17.97</td>
+      <td>6.97</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0212</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.37</td>
+      <td>5</td>
+      <td>51.37</td>
+      <td>10.27</td>
+      <td>84.94</td>
+      <td>102.9</td>
+      <td>17.97</td>
+      <td>6.97</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0212</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.66</td>
+      <td>10</td>
+      <td>74.66</td>
+      <td>7.466</td>
+      <td>48.56</td>
+      <td>48.71</td>
+      <td>0.1405</td>
+      <td>-4.859</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0212</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.37</td>
+      <td>5</td>
+      <td>51.37</td>
+      <td>41.1</td>
+      <td>48.56</td>
+      <td>48.71</td>
+      <td>0.1405</td>
+      <td>-4.859</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0214</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>83.42</td>
+      <td>10</td>
+      <td>73.42</td>
+      <td>73.42</td>
+      <td>83.81</td>
+      <td>100.6</td>
+      <td>16.82</td>
+      <td>5.823</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0214</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>56.96</td>
+      <td>5</td>
+      <td>51.96</td>
+      <td>10.39</td>
+      <td>83.81</td>
+      <td>100.6</td>
+      <td>16.82</td>
+      <td>5.823</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0214</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>83.42</td>
+      <td>10</td>
+      <td>73.42</td>
+      <td>7.342</td>
+      <td>48.91</td>
+      <td>48.52</td>
+      <td>-0.3917</td>
+      <td>-5.392</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0214</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>56.96</td>
+      <td>5</td>
+      <td>51.96</td>
+      <td>41.57</td>
+      <td>48.91</td>
+      <td>48.52</td>
+      <td>-0.3917</td>
+      <td>-5.392</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0216</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.57</td>
+      <td>10</td>
+      <td>72.57</td>
+      <td>72.57</td>
+      <td>83.14</td>
+      <td>100.7</td>
+      <td>17.58</td>
+      <td>6.577</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0216</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.84</td>
+      <td>5</td>
+      <td>52.84</td>
+      <td>10.57</td>
+      <td>83.14</td>
+      <td>100.7</td>
+      <td>17.58</td>
+      <td>6.577</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0216</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.57</td>
+      <td>10</td>
+      <td>72.57</td>
+      <td>7.257</td>
+      <td>49.53</td>
+      <td>48.7</td>
+      <td>-0.8283</td>
+      <td>-5.828</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0216</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.84</td>
+      <td>5</td>
+      <td>52.84</td>
+      <td>42.27</td>
+      <td>49.53</td>
+      <td>48.7</td>
+      <td>-0.8283</td>
+      <td>-5.828</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0237</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.4</td>
+      <td>10</td>
+      <td>72.4</td>
+      <td>72.4</td>
+      <td>83.04</td>
+      <td>99.92</td>
+      <td>16.88</td>
+      <td>5.877</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0237</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.2</td>
+      <td>5</td>
+      <td>53.2</td>
+      <td>10.64</td>
+      <td>83.04</td>
+      <td>99.92</td>
+      <td>16.88</td>
+      <td>5.877</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0237</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.4</td>
+      <td>10</td>
+      <td>72.4</td>
+      <td>7.24</td>
+      <td>49.8</td>
+      <td>46.85</td>
+      <td>-2.951</td>
+      <td>-7.951</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0237</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.2</td>
+      <td>5</td>
+      <td>53.2</td>
+      <td>42.56</td>
+      <td>49.8</td>
+      <td>46.85</td>
+      <td>-2.951</td>
+      <td>-7.951</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0243</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.59</td>
+      <td>10</td>
+      <td>72.59</td>
+      <td>72.59</td>
+      <td>83.47</td>
+      <td>101.1</td>
+      <td>17.67</td>
+      <td>6.668</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0243</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.38</td>
+      <td>5</td>
+      <td>54.38</td>
+      <td>10.88</td>
+      <td>83.47</td>
+      <td>101.1</td>
+      <td>17.67</td>
+      <td>6.668</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0243</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.59</td>
+      <td>10</td>
+      <td>72.59</td>
+      <td>7.259</td>
+      <td>50.77</td>
+      <td>45.18</td>
+      <td>-5.585</td>
+      <td>-10.59</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0243</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.38</td>
+      <td>5</td>
+      <td>54.38</td>
+      <td>43.51</td>
+      <td>50.77</td>
+      <td>45.18</td>
+      <td>-5.585</td>
+      <td>-10.59</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0246</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.47</td>
+      <td>10</td>
+      <td>71.47</td>
+      <td>71.47</td>
+      <td>82.73</td>
+      <td>97.72</td>
+      <td>14.99</td>
+      <td>3.988</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0246</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>61.31</td>
+      <td>5</td>
+      <td>56.31</td>
+      <td>11.26</td>
+      <td>82.73</td>
+      <td>97.72</td>
+      <td>14.99</td>
+      <td>3.988</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0246</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.47</td>
+      <td>10</td>
+      <td>71.47</td>
+      <td>7.147</td>
+      <td>52.2</td>
+      <td>47.47</td>
+      <td>-4.727</td>
+      <td>-9.727</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0246</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>61.31</td>
+      <td>5</td>
+      <td>56.31</td>
+      <td>45.05</td>
+      <td>52.2</td>
+      <td>47.47</td>
+      <td>-4.727</td>
+      <td>-9.727</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0259</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.43</td>
+      <td>10</td>
+      <td>72.43</td>
+      <td>72.43</td>
+      <td>83.89</td>
+      <td>101</td>
+      <td>17.08</td>
+      <td>6.082</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0259</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>62.3</td>
+      <td>5</td>
+      <td>57.3</td>
+      <td>11.46</td>
+      <td>83.89</td>
+      <td>101</td>
+      <td>17.08</td>
+      <td>6.082</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0259</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.43</td>
+      <td>10</td>
+      <td>72.43</td>
+      <td>7.243</td>
+      <td>53.08</td>
+      <td>52.01</td>
+      <td>-1.075</td>
+      <td>-6.075</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0259</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>62.3</td>
+      <td>5</td>
+      <td>57.3</td>
+      <td>45.84</td>
+      <td>53.08</td>
+      <td>52.01</td>
+      <td>-1.075</td>
+      <td>-6.075</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0264</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.03</td>
+      <td>10</td>
+      <td>72.03</td>
+      <td>72.03</td>
+      <td>83.31</td>
+      <td>100.8</td>
+      <td>17.5</td>
+      <td>6.497</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0264</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>61.43</td>
+      <td>5</td>
+      <td>56.43</td>
+      <td>11.29</td>
+      <td>83.31</td>
+      <td>100.8</td>
+      <td>17.5</td>
+      <td>6.497</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0264</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.03</td>
+      <td>10</td>
+      <td>72.03</td>
+      <td>7.203</td>
+      <td>52.34</td>
+      <td>52.69</td>
+      <td>0.3471</td>
+      <td>-4.653</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0264</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>61.43</td>
+      <td>5</td>
+      <td>56.43</td>
+      <td>45.14</td>
+      <td>52.34</td>
+      <td>52.69</td>
+      <td>0.3471</td>
+      <td>-4.653</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0265</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.3</td>
+      <td>10</td>
+      <td>72.3</td>
+      <td>72.3</td>
+      <td>83.28</td>
+      <td>101.3</td>
+      <td>18.06</td>
+      <td>7.059</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0265</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.87</td>
+      <td>5</td>
+      <td>54.87</td>
+      <td>10.97</td>
+      <td>83.28</td>
+      <td>101.3</td>
+      <td>18.06</td>
+      <td>7.059</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0265</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.3</td>
+      <td>10</td>
+      <td>72.3</td>
+      <td>7.23</td>
+      <td>51.12</td>
+      <td>51.12</td>
+      <td>-0.007171</td>
+      <td>-5.007</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0265</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.87</td>
+      <td>5</td>
+      <td>54.87</td>
+      <td>43.89</td>
+      <td>51.12</td>
+      <td>51.12</td>
+      <td>-0.007171</td>
+      <td>-5.007</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0280</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.66</td>
+      <td>10</td>
+      <td>71.66</td>
+      <td>71.66</td>
+      <td>82.67</td>
+      <td>100.3</td>
+      <td>17.63</td>
+      <td>6.625</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0280</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>60.07</td>
+      <td>5</td>
+      <td>55.07</td>
+      <td>11.01</td>
+      <td>82.67</td>
+      <td>100.3</td>
+      <td>17.63</td>
+      <td>6.625</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0280</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.66</td>
+      <td>10</td>
+      <td>71.66</td>
+      <td>7.166</td>
+      <td>51.22</td>
+      <td>46.86</td>
+      <td>-4.361</td>
+      <td>-9.361</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0280</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>60.07</td>
+      <td>5</td>
+      <td>55.07</td>
+      <td>44.06</td>
+      <td>51.22</td>
+      <td>46.86</td>
+      <td>-4.361</td>
+      <td>-9.361</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0285</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.62</td>
+      <td>10</td>
+      <td>71.62</td>
+      <td>71.62</td>
+      <td>82.9</td>
+      <td>100.7</td>
+      <td>17.84</td>
+      <td>6.845</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0285</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>61.37</td>
+      <td>5</td>
+      <td>56.37</td>
+      <td>11.27</td>
+      <td>82.9</td>
+      <td>100.7</td>
+      <td>17.84</td>
+      <td>6.845</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0285</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.62</td>
+      <td>10</td>
+      <td>71.62</td>
+      <td>7.162</td>
+      <td>52.26</td>
+      <td>50.59</td>
+      <td>-1.673</td>
+      <td>-6.673</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0285</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>61.37</td>
+      <td>5</td>
+      <td>56.37</td>
+      <td>45.1</td>
+      <td>52.26</td>
+      <td>50.59</td>
+      <td>-1.673</td>
+      <td>-6.673</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0287</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.3</td>
+      <td>10</td>
+      <td>71.3</td>
+      <td>71.3</td>
+      <td>82.46</td>
+      <td>98.64</td>
+      <td>16.18</td>
+      <td>5.183</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0287</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>60.77</td>
+      <td>5</td>
+      <td>55.77</td>
+      <td>11.15</td>
+      <td>82.46</td>
+      <td>98.64</td>
+      <td>16.18</td>
+      <td>5.183</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0287</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.3</td>
+      <td>10</td>
+      <td>71.3</td>
+      <td>7.13</td>
+      <td>51.74</td>
+      <td>51.04</td>
+      <td>-0.6982</td>
+      <td>-5.698</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0287</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>60.77</td>
+      <td>5</td>
+      <td>55.77</td>
+      <td>44.61</td>
+      <td>51.74</td>
+      <td>51.04</td>
+      <td>-0.6982</td>
+      <td>-5.698</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0290</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.74</td>
+      <td>10</td>
+      <td>71.74</td>
+      <td>71.74</td>
+      <td>82.75</td>
+      <td>99.8</td>
+      <td>17.05</td>
+      <td>6.05</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0290</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>60.06</td>
+      <td>5</td>
+      <td>55.06</td>
+      <td>11.01</td>
+      <td>82.75</td>
+      <td>99.8</td>
+      <td>17.05</td>
+      <td>6.05</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0290</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.74</td>
+      <td>10</td>
+      <td>71.74</td>
+      <td>7.174</td>
+      <td>51.23</td>
+      <td>50.68</td>
+      <td>-0.5488</td>
+      <td>-5.549</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0290</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>60.06</td>
+      <td>5</td>
+      <td>55.06</td>
+      <td>44.05</td>
+      <td>51.23</td>
+      <td>50.68</td>
+      <td>-0.5488</td>
+      <td>-5.549</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0300</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.47</td>
+      <td>10</td>
+      <td>72.47</td>
+      <td>72.47</td>
+      <td>83.44</td>
+      <td>100</td>
+      <td>16.58</td>
+      <td>5.579</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0300</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.81</td>
+      <td>5</td>
+      <td>54.81</td>
+      <td>10.96</td>
+      <td>83.44</td>
+      <td>100</td>
+      <td>16.58</td>
+      <td>5.579</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0300</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.47</td>
+      <td>10</td>
+      <td>72.47</td>
+      <td>7.247</td>
+      <td>51.09</td>
+      <td>51.71</td>
+      <td>0.6135</td>
+      <td>-4.387</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0300</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.81</td>
+      <td>5</td>
+      <td>54.81</td>
+      <td>43.84</td>
+      <td>51.09</td>
+      <td>51.71</td>
+      <td>0.6135</td>
+      <td>-4.387</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0306</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>81.24</td>
+      <td>10</td>
+      <td>71.24</td>
+      <td>71.24</td>
+      <td>82.19</td>
+      <td>98.24</td>
+      <td>16.04</td>
+      <td>5.044</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0306</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.76</td>
+      <td>5</td>
+      <td>54.76</td>
+      <td>10.95</td>
+      <td>82.19</td>
+      <td>98.24</td>
+      <td>16.04</td>
+      <td>5.044</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0306</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>81.24</td>
+      <td>10</td>
+      <td>71.24</td>
+      <td>7.124</td>
+      <td>50.94</td>
+      <td>52.05</td>
+      <td>1.11</td>
+      <td>-3.89</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0306</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.76</td>
+      <td>5</td>
+      <td>54.76</td>
+      <td>43.81</td>
+      <td>50.94</td>
+      <td>52.05</td>
+      <td>1.11</td>
+      <td>-3.89</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0310</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.36</td>
+      <td>10</td>
+      <td>72.36</td>
+      <td>72.36</td>
+      <td>83.06</td>
+      <td>98.98</td>
+      <td>15.92</td>
+      <td>4.923</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0310</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.48</td>
+      <td>5</td>
+      <td>53.48</td>
+      <td>10.7</td>
+      <td>83.06</td>
+      <td>98.98</td>
+      <td>15.92</td>
+      <td>4.923</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0310</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.36</td>
+      <td>10</td>
+      <td>72.36</td>
+      <td>7.236</td>
+      <td>50.02</td>
+      <td>47.86</td>
+      <td>-2.161</td>
+      <td>-7.161</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0310</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.48</td>
+      <td>5</td>
+      <td>53.48</td>
+      <td>42.79</td>
+      <td>50.02</td>
+      <td>47.86</td>
+      <td>-2.161</td>
+      <td>-7.161</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0318</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>83.1</td>
+      <td>10</td>
+      <td>73.1</td>
+      <td>73.1</td>
+      <td>84.05</td>
+      <td>98.97</td>
+      <td>14.92</td>
+      <td>3.915</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0318</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.76</td>
+      <td>5</td>
+      <td>54.76</td>
+      <td>10.95</td>
+      <td>84.05</td>
+      <td>98.97</td>
+      <td>14.92</td>
+      <td>3.915</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0318</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>83.1</td>
+      <td>10</td>
+      <td>73.1</td>
+      <td>7.31</td>
+      <td>51.11</td>
+      <td>50.94</td>
+      <td>-0.1768</td>
+      <td>-5.177</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0318</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.76</td>
+      <td>5</td>
+      <td>54.76</td>
+      <td>43.8</td>
+      <td>51.11</td>
+      <td>50.94</td>
+      <td>-0.1768</td>
+      <td>-5.177</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0319</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>83.48</td>
+      <td>10</td>
+      <td>73.48</td>
+      <td>73.48</td>
+      <td>84.28</td>
+      <td>98.87</td>
+      <td>14.59</td>
+      <td>3.591</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0319</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.97</td>
+      <td>5</td>
+      <td>53.97</td>
+      <td>10.79</td>
+      <td>84.28</td>
+      <td>98.87</td>
+      <td>14.59</td>
+      <td>3.591</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0319</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>83.48</td>
+      <td>10</td>
+      <td>73.48</td>
+      <td>7.348</td>
+      <td>50.53</td>
+      <td>49.53</td>
+      <td>-1.001</td>
+      <td>-6.001</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0319</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.97</td>
+      <td>5</td>
+      <td>53.97</td>
+      <td>43.18</td>
+      <td>50.53</td>
+      <td>49.53</td>
+      <td>-1.001</td>
+      <td>-6.001</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0324</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>83.59</td>
+      <td>10</td>
+      <td>73.59</td>
+      <td>73.59</td>
+      <td>84.43</td>
+      <td>100.8</td>
+      <td>16.33</td>
+      <td>5.331</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0324</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.19</td>
+      <td>5</td>
+      <td>54.19</td>
+      <td>10.84</td>
+      <td>84.43</td>
+      <td>100.8</td>
+      <td>16.33</td>
+      <td>5.331</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0324</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>83.59</td>
+      <td>10</td>
+      <td>73.59</td>
+      <td>7.359</td>
+      <td>50.71</td>
+      <td>49.4</td>
+      <td>-1.311</td>
+      <td>-6.311</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0324</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.19</td>
+      <td>5</td>
+      <td>54.19</td>
+      <td>43.36</td>
+      <td>50.71</td>
+      <td>49.4</td>
+      <td>-1.311</td>
+      <td>-6.311</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0332</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>83.37</td>
+      <td>10</td>
+      <td>73.37</td>
+      <td>73.37</td>
+      <td>84.18</td>
+      <td>97.12</td>
+      <td>12.94</td>
+      <td>1.935</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0332</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.07</td>
+      <td>5</td>
+      <td>54.07</td>
+      <td>10.81</td>
+      <td>84.18</td>
+      <td>97.12</td>
+      <td>12.94</td>
+      <td>1.935</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0332</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>83.37</td>
+      <td>10</td>
+      <td>73.37</td>
+      <td>7.337</td>
+      <td>50.6</td>
+      <td>48.64</td>
+      <td>-1.957</td>
+      <td>-6.957</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0332</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.07</td>
+      <td>5</td>
+      <td>54.07</td>
+      <td>43.26</td>
+      <td>50.6</td>
+      <td>48.64</td>
+      <td>-1.957</td>
+      <td>-6.957</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0337</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>82.97</td>
+      <td>10</td>
+      <td>72.97</td>
+      <td>72.97</td>
+      <td>83.92</td>
+      <td>100</td>
+      <td>16.12</td>
+      <td>5.119</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0337</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.74</td>
+      <td>5</td>
+      <td>54.74</td>
+      <td>10.95</td>
+      <td>83.92</td>
+      <td>100</td>
+      <td>16.12</td>
+      <td>5.119</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0337</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>82.97</td>
+      <td>10</td>
+      <td>72.97</td>
+      <td>7.297</td>
+      <td>51.09</td>
+      <td>51.1</td>
+      <td>0.01016</td>
+      <td>-4.99</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0337</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.74</td>
+      <td>5</td>
+      <td>54.74</td>
+      <td>43.79</td>
+      <td>51.09</td>
+      <td>51.1</td>
+      <td>0.01016</td>
+      <td>-4.99</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0344</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.1</td>
+      <td>10</td>
+      <td>74.1</td>
+      <td>74.1</td>
+      <td>85.05</td>
+      <td>98.12</td>
+      <td>13.07</td>
+      <td>2.069</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0344</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>59.79</td>
+      <td>5</td>
+      <td>54.79</td>
+      <td>10.96</td>
+      <td>85.05</td>
+      <td>98.12</td>
+      <td>13.07</td>
+      <td>2.069</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0344</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.1</td>
+      <td>10</td>
+      <td>74.1</td>
+      <td>7.41</td>
+      <td>51.24</td>
+      <td>52.03</td>
+      <td>0.7844</td>
+      <td>-4.216</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0344</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>59.79</td>
+      <td>5</td>
+      <td>54.79</td>
+      <td>43.83</td>
+      <td>51.24</td>
+      <td>52.03</td>
+      <td>0.7844</td>
+      <td>-4.216</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0352</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.7</td>
+      <td>10</td>
+      <td>74.7</td>
+      <td>74.7</td>
+      <td>85.45</td>
+      <td>100.2</td>
+      <td>14.72</td>
+      <td>3.721</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0352</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.71</td>
+      <td>5</td>
+      <td>53.71</td>
+      <td>10.74</td>
+      <td>85.45</td>
+      <td>100.2</td>
+      <td>14.72</td>
+      <td>3.721</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0352</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.7</td>
+      <td>10</td>
+      <td>74.7</td>
+      <td>7.47</td>
+      <td>50.44</td>
+      <td>50.38</td>
+      <td>-0.05871</td>
+      <td>-5.059</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0352</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.71</td>
+      <td>5</td>
+      <td>53.71</td>
+      <td>42.97</td>
+      <td>50.44</td>
+      <td>50.38</td>
+      <td>-0.05871</td>
+      <td>-5.059</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0358</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>84.94</td>
+      <td>10</td>
+      <td>74.94</td>
+      <td>74.94</td>
+      <td>85.65</td>
+      <td>95.75</td>
+      <td>10.1</td>
+      <td>-0.9019</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0358</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.53</td>
+      <td>5</td>
+      <td>53.53</td>
+      <td>10.71</td>
+      <td>85.65</td>
+      <td>95.75</td>
+      <td>10.1</td>
+      <td>-0.9019</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0358</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>84.94</td>
+      <td>10</td>
+      <td>74.94</td>
+      <td>7.494</td>
+      <td>50.32</td>
+      <td>49.64</td>
+      <td>-0.6776</td>
+      <td>-5.678</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0358</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.53</td>
+      <td>5</td>
+      <td>53.53</td>
+      <td>42.83</td>
+      <td>50.32</td>
+      <td>49.64</td>
+      <td>-0.6776</td>
+      <td>-5.678</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0363</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.09</td>
+      <td>10</td>
+      <td>76.09</td>
+      <td>76.09</td>
+      <td>86.67</td>
+      <td>98.16</td>
+      <td>11.49</td>
+      <td>0.4881</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0363</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>57.9</td>
+      <td>5</td>
+      <td>52.9</td>
+      <td>10.58</td>
+      <td>86.67</td>
+      <td>98.16</td>
+      <td>11.49</td>
+      <td>0.4881</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0363</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.09</td>
+      <td>10</td>
+      <td>76.09</td>
+      <td>7.609</td>
+      <td>49.93</td>
+      <td>48.06</td>
+      <td>-1.868</td>
+      <td>-6.868</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0363</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>57.9</td>
+      <td>5</td>
+      <td>52.9</td>
+      <td>42.32</td>
+      <td>49.93</td>
+      <td>48.06</td>
+      <td>-1.868</td>
+      <td>-6.868</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0380</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>86.76</td>
+      <td>10</td>
+      <td>76.76</td>
+      <td>76.76</td>
+      <td>87.56</td>
+      <td>97.19</td>
+      <td>9.636</td>
+      <td>-1.364</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0380</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>58.97</td>
+      <td>5</td>
+      <td>53.97</td>
+      <td>10.79</td>
+      <td>87.56</td>
+      <td>97.19</td>
+      <td>9.636</td>
+      <td>-1.364</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0380</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>86.76</td>
+      <td>10</td>
+      <td>76.76</td>
+      <td>7.676</td>
+      <td>50.85</td>
+      <td>45.08</td>
+      <td>-5.769</td>
+      <td>-10.77</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0380</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>58.97</td>
+      <td>5</td>
+      <td>53.97</td>
+      <td>43.18</td>
+      <td>50.85</td>
+      <td>45.08</td>
+      <td>-5.769</td>
+      <td>-10.77</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0382</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>87.03</td>
+      <td>10</td>
+      <td>77.03</td>
+      <td>77.03</td>
+      <td>88.17</td>
+      <td>97.24</td>
+      <td>9.078</td>
+      <td>-1.922</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0382</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>60.66</td>
+      <td>5</td>
+      <td>55.66</td>
+      <td>11.13</td>
+      <td>88.17</td>
+      <td>97.24</td>
+      <td>9.078</td>
+      <td>-1.922</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0382</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>87.03</td>
+      <td>10</td>
+      <td>77.03</td>
+      <td>7.703</td>
+      <td>52.23</td>
+      <td>46.37</td>
+      <td>-5.865</td>
+      <td>-10.87</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0382</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>60.66</td>
+      <td>5</td>
+      <td>55.66</td>
+      <td>44.53</td>
+      <td>52.23</td>
+      <td>46.37</td>
+      <td>-5.865</td>
+      <td>-10.87</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0385</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>87.22</td>
+      <td>10</td>
+      <td>77.22</td>
+      <td>77.22</td>
+      <td>88.67</td>
+      <td>97.12</td>
+      <td>8.449</td>
+      <td>-2.551</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0385</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>62.29</td>
+      <td>5</td>
+      <td>57.29</td>
+      <td>11.46</td>
+      <td>88.67</td>
+      <td>97.12</td>
+      <td>8.449</td>
+      <td>-2.551</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0385</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>87.22</td>
+      <td>10</td>
+      <td>77.22</td>
+      <td>7.722</td>
+      <td>53.56</td>
+      <td>48.39</td>
+      <td>-5.164</td>
+      <td>-10.16</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0385</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>62.29</td>
+      <td>5</td>
+      <td>57.29</td>
+      <td>45.83</td>
+      <td>53.56</td>
+      <td>48.39</td>
+      <td>-5.164</td>
+      <td>-10.16</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0387</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>87.72</td>
+      <td>10</td>
+      <td>77.72</td>
+      <td>77.72</td>
+      <td>89.29</td>
+      <td>96.58</td>
+      <td>7.286</td>
+      <td>-3.714</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0387</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0.2</td>
+      <td>62.87</td>
+      <td>5</td>
+      <td>57.87</td>
+      <td>11.57</td>
+      <td>89.29</td>
+      <td>96.58</td>
+      <td>7.286</td>
+      <td>-3.714</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0387</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>87.72</td>
+      <td>10</td>
+      <td>77.72</td>
+      <td>7.772</td>
+      <td>54.07</td>
+      <td>48.03</td>
+      <td>-6.035</td>
+      <td>-11.03</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>L0387</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.8</td>
+      <td>62.87</td>
+      <td>5</td>
+      <td>57.87</td>
+      <td>46.29</td>
+      <td>54.07</td>
+      <td>48.03</td>
+      <td>-6.035</td>
+      <td>-11.03</td>
+    </tr>
+  </tbody>
+</table></div>
+</section>
+<section><h2>3. Diagnostic summaries</h2>
+<h3 class='note'>Performance: controlled vs no-control</h3>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>output_dim</th>
+      <th>n</th>
+      <th>std_controlled</th>
+      <th>std_nocontrol</th>
+      <th>var_reduction_pct</th>
+      <th>cpk_controlled</th>
+      <th>cpk_nocontrol</th>
+      <th>oos_controlled</th>
+      <th>oos_nocontrol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>0</td>
+      <td>62</td>
+      <td>1.805</td>
+      <td>3.188</td>
+      <td>67.95</td>
+      <td>0.5361</td>
+      <td>-8.734</td>
+      <td>0.06452</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>1</td>
+      <td>62</td>
+      <td>2.129</td>
+      <td>3.587</td>
+      <td>64.78</td>
+      <td>0.2345</td>
+      <td>-4.403</td>
+      <td>0.4032</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 class='note'>Disturbance dynamics</h3>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>output_dim</th>
+      <th>recommended_subtraction</th>
+      <th>n</th>
+      <th>adf_t</th>
+      <th>adf_rho</th>
+      <th>adf_reject_unitroot</th>
+      <th>kpss</th>
+      <th>kpss_reject_stationary</th>
+      <th>vr2</th>
+      <th>vr4</th>
+      <th>lag1_autocorr</th>
+      <th>verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>0</td>
+      <td>per-lot</td>
+      <td>62</td>
+      <td>-0.426</td>
+      <td>-0.02653</td>
+      <td>False</td>
+      <td>0.5347</td>
+      <td>True</td>
+      <td>0.4006</td>
+      <td>0.5055</td>
+      <td>0.8482</td>
+      <td>stationary</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>1</td>
+      <td>review</td>
+      <td>62</td>
+      <td>-2.059</td>
+      <td>-0.149</td>
+      <td>False</td>
+      <td>1.074</td>
+      <td>True</td>
+      <td>0.9987</td>
+      <td>0.6784</td>
+      <td>0.8588</td>
+      <td>inconclusive</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 class='note'>Model consistency (supplied M/g check)</h3>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>output_dim</th>
+      <th>n</th>
+      <th>resid_rms</th>
+      <th>resid_mean</th>
+      <th>resid_lag1_autocorr</th>
+      <th>frac_resid_var_of_y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>0</td>
+      <td>62</td>
+      <td>1.248</td>
+      <td>-0.06817</td>
+      <td>0.4219</td>
+      <td>0.4846</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>1</td>
+      <td>62</td>
+      <td>1.522</td>
+      <td>-0.3557</td>
+      <td>0.5106</td>
+      <td>0.4912</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 class='note'>FF effectiveness</h3>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>output_dim</th>
+      <th>n</th>
+      <th>ff_r2</th>
+      <th>resid_after_ff_std</th>
+      <th>disturbance_std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>0</td>
+      <td>62</td>
+      <td>-0.6039</td>
+      <td>3.189</td>
+      <td>3.162</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>1</td>
+      <td>62</td>
+      <td>-1.473</td>
+      <td>3.548</td>
+      <td>3.558</td>
+    </tr>
+  </tbody>
+</table></div>
+<h3 class='note'>Variance reduction with M uncertainty</h3>
+<div class="table-wrap"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>process_id</th>
+      <th>tool_id</th>
+      <th>output_dim</th>
+      <th>var_reduction_p05</th>
+      <th>var_reduction_p50</th>
+      <th>var_reduction_p95</th>
+      <th>cpk_nc_p05</th>
+      <th>cpk_nc_p50</th>
+      <th>cpk_nc_p95</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>0</td>
+      <td>63.23</td>
+      <td>68.03</td>
+      <td>71.97</td>
+      <td>-8.904</td>
+      <td>-8.725</td>
+      <td>-8.524</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>T1</td>
+      <td>1</td>
+      <td>60.78</td>
+      <td>64.9</td>
+      <td>69.1</td>
+      <td>-4.484</td>
+      <td>-4.401</td>
+      <td>-4.306</td>
+    </tr>
+  </tbody>
+</table></div>
+</section>
+</main>
+
+<script>
+function filterLots(boxId, containerId) {
+  const q = document.getElementById(boxId).value.toLowerCase();
+  document.querySelectorAll('#' + containerId + ' > details').forEach(d => {
+    const label = d.querySelector('summary').textContent.toLowerCase();
+    d.style.display = label.includes(q) ? '' : 'none';
+  });
+}
+</script>
+
+</body></html>
